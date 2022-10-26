@@ -17,11 +17,18 @@
 
 body {
   background: var(--gris);
-  font-family: "Montserrat", sans-serif;
+  
 }
 
-h1, h2, h3, h4, p, span, li, ul, a { color: aliceblue;}
-a { text-decoration: none; }
+h1, h2, h3, h4, p, span, li, ul, a { color: aliceblue; font-family: 'Montserrat', sans-serif;}
+h1 { font-weight: 700; }
+a { text-decoration: underline; }
+
+.titulo{
+  text-shadow: 1px -1px 0 #767676, -1px 2px 1px #737272, -2px 4px 1px #767474, -3px 6px 1px #787777;
+  color: var(--blanco);
+  font-weight: 700;
+}
 
 .navbar { 
   position: sticky; 
@@ -33,8 +40,9 @@ a { text-decoration: none; }
 }
 
 .footer {
-
+  position: fixed;
   bottom: 0px;
+  width: 100%;
   background-color: var(--negro); 
   padding: 20px;
 
@@ -121,6 +129,7 @@ a { text-decoration: none; }
   display: inline-block;
   margin-top: 20px;
   padding: 20px;
+  border-radius: 3px;
 }
 
 .bg-azul { background-color: var(--azul); }

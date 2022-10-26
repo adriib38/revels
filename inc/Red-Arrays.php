@@ -143,7 +143,7 @@ class Red
 	 */
 	public function selectRevelsFromUser($id)
 	{	
-		if($this->selectUser($id)==null)
+		if($this->selectUserById($id)==null)
 			return array();
 		
 		$revels = array();
@@ -163,13 +163,13 @@ class Red
 	 */
 	public function selectFollowsFromUser($id)
 	{
-		if($this->selectUser($id)==null)
+		if($this->selectUserById($id)==null)
 			return array();
 		
 		$follows = array();
 		foreach($this->followers as $follow)
 			if($follow->userId == $id)
-				$follows[] = $this->selectUser($follow->followedId);
+				$follows[] = $this->selectUserById($follow->followedId);
 		return $follows;
 	}
 	
@@ -235,7 +235,7 @@ class Red
 	 */
 	public function selectRevelsForUser($id)
 	{
-		if($this->selectUser($id)==null)
+		if($this->selectUserById($id)==null)
 			return array();
 		
 		$follows = $this->selectFollowsFromUser($id);
@@ -292,7 +292,7 @@ class Red
 	 */
 	public function updateUser($id, $name, $pass, $mail)
 	{
-		if($this->selectUser($id)==null)
+		if($this->selectUserById($id)==null)
 			return false;
 		
 		foreach($this->users as $key => $user) {
@@ -341,7 +341,7 @@ class Red
 	public function insertRevel($userId, $text)
 	{
 		//comprobar si existe user
-		if($this->selectUser($userId)==null)
+		if($this->selectUserById($userId)==null)
 			return -1;
 		
 		$revelId = 0;
@@ -372,7 +372,7 @@ class Red
 		if($this->selectRevel($revelId)==null)
 			return -1;
 		//comprobar si existe user
-		if($this->selectUser($userId)==null)
+		if($this->selectUserById($userId)==null)
 			return -1;
 		
 		//comprobar si el usuario le sigue
@@ -414,10 +414,10 @@ class Red
 		if($userId == $followedId)
 			return false;
 		//comprobar si existe user
-		if($this->selectUser($userId)==null)
+		if($this->selectUserById($userId)==null)
 			return false;
 		//comprobar si existe al que se va a seguir
-		if($this->selectUser($followedId)==null)
+		if($this->selectUserById($followedId)==null)
 			return false;
 		//comprobar si no le está siguiendo ya
 		foreach($this->followers as $follow)
@@ -514,7 +514,7 @@ class Red
 	public function deleteUser($id)
 	{
 		//comprobar si existe usuario
-		if($this->selectUser($id)==null)
+		if($this->selectUserById($id)==null)
 			return false;
 		
 		// se eliminan las revel de ese usuario y por extensión sus comentarios

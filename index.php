@@ -1,7 +1,7 @@
 <?php
     include('inc/Red-Objects.php');
 
-    //$_SESSION = "";
+    $_SESSION = "";
 
     //Aseguramos que lleguen respuestas antes de validarlas
     $sesionIniciada = false;
@@ -25,18 +25,22 @@
         
         <meta http-equiv="expires" content="Sat, 07 feb 2016 00:00:00 GMT">
 
+        
         <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,500;0,600;0,700;0,800;1,500;1,700&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="styles\style.css">
     </head>
     <body>
 
 
-        <?php if(!$sesionIniciada) {?>
+        <?php if(!$sesionIniciada) { ?>
         <!-- BIENVENIDA Cuando no hay sesión iniciada -->
         <?php include('inc/cabecera.inc.php'); ?>
         <div class="mrg-50">
             <div class="centrado">
-                <h1>Bienvenido a Rǝvels</h1>
+                <h1>Bienvenido a <span class="titulo">Rǝvels</span></h1>
 
                 <div class="lista-bienvenida">
                     <img src="images/mockup.png" width="320px"> 
@@ -50,10 +54,13 @@
                         <p class="bienvenida-desc">Si ya tienes una cuenta de Revels <a href="login.php">inicia sesión</a>, si aún no <a href="registro.php">registrate</a>,</p>
                     </div>
                 </div>
+               
+                <h2>Empieza a compartir momentos</h2>
                 <div class="index-btns">
                     <a href="login.php" class="btn-login">Login</a>
                     <a href="registro.php" class="btn-registro">Registro</a>
                 </div>
+                <img src="images/collage-momentos.png" width=1200px>
                 <div class="conectamos-personas">
                     <h2>Conectamos personas</h2>
                     <br>
@@ -66,11 +73,11 @@
             </div>
         </div>
         
-        <?php } if($sesionIniciada) ?>
+        <?php } if($sesionIniciada){ ?>
 
         <h1>HOLA</h2>
 
-
+        <?php } ?>
         <?php include('inc/footer.inc.php'); ?>
     </body>
     
