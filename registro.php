@@ -89,10 +89,7 @@
                 <p><a href="#">¿Olvidaste tu contraseña?</a></p>
                 <br>
                 <p>¿Ya tienes cuenta? <a href="login.php">Login</a><p>
-                <br>
-               
             </div>
-            
         </div>
 
         <?php include('inc/footer.inc.php'); ?>

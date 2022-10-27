@@ -17,21 +17,17 @@
 
 body {
   background: var(--gris);
-  
+  font-family: "Montserrat", sans-serif;
+  padding-bottom: 10%;
 }
 
-h1, h2, h3, h4, p, span, li, ul, a { color: aliceblue; font-family: 'Montserrat', sans-serif;}
-h1 { font-weight: 700; }
-a { text-decoration: underline; }
-
-.titulo{
-  text-shadow: 1px -1px 0 #767676, -1px 2px 1px #737272, -2px 4px 1px #767474, -3px 6px 1px #787777;
-  color: var(--blanco);
-  font-weight: 700;
-}
+h1, h2, h3, h4, p, span, li, ul, a { color: aliceblue;}
+a { text-decoration: none; }
 
 .navbar { 
-  position: sticky; 
+
+  position: sticky;
+  width: 100%;
   box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.062), -5px -2px 30px 7px rgba(0, 0, 0, 0.075);
   background-color: var(--blanco); 
   padding: 20px;
@@ -43,10 +39,12 @@ a { text-decoration: underline; }
   position: fixed;
   bottom: 0px;
   width: 100%;
+  left: 0;
+
   background-color: var(--negro); 
-  padding: 20px;
 
   border: 1px solid rgba(0, 0, 0, 0);
+  padding: 20px;
 }
 
 .navbar li {
@@ -129,11 +127,24 @@ a { text-decoration: underline; }
   display: inline-block;
   margin-top: 20px;
   padding: 20px;
-  border-radius: 3px;
+}
+
+.form-actualizar {
+  margin-left: 30%;
+  border: #7B9EA8 2px solid;
 }
 
 .bg-azul { background-color: var(--azul); }
 .bg-amarillo { background-color: var(--amarillo); } 
+.bg-blanco { background-color: var(--blanco); } 
+
+.bg-negro > label{
+  color: var(--blanco);
+}
+
+.bg-blanco > * {
+  color: var(--negro);
+}
 
 .form-auth input {
   width: 500px;
@@ -164,18 +175,26 @@ a { text-decoration: underline; }
   margin-top: 15px;
 }
 
-
-#muro-revels {
-  background-color: var(--blanco);
+.muro {
   margin-left: 30%;
-  padding-bottom: 100px;
-  padding-top: 20px;
-  padding-left: 20px;
-  
+  margin-top: 10px;
+
+}
+
+.revel-en-muro {
+  width: 80%;
+  background-color: var(--blanco);
   border-bottom-right-radius: 40px 40px;
   border-top-right-radius: 40px 40px;
   border-top-left-radius: 40px 40px;
-  
+  border: var(--azul) solid 2px;
+
+  padding-top: 20px;
+  padding-bottom: 100px;
+  padding-left: 20px;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .revel-muro > .usuario { 
@@ -189,13 +208,55 @@ a { text-decoration: underline; }
   color: var(--blanco);
   background-color: var(--negro);
   padding: 10px;
+  height: 40px;
+  border: var(--rojo) solid 2px;
 }
 
 .revel-muro > .usuario > img {
   width: 50px;
 }
 
+.revel-en-muro > .botones {
+  position: relative;
+  top: 50px;
+  font-size: 1.5rem;
+  color: var(--gris);
+}
+
+.revel-en-muro > .botones > i{
+  margin-right: 20px;
+}
+
+.perfil-cabecera {
+  text-align: center;
+
+  padding: 30px;
+
+  background: rgb(255,164,0);
+  background: radial-gradient(circle, rgba(255,164,0,1) 0%, rgba(0,159,253,1) 50%, rgba(141,0,0,1) 100%);
+}
+
+.perfil-cabecera > #nombre {
+  text-shadow: #272727;
+}
+
+.img-perfil {
+  width:150px;
+  height:150px;
+  border-radius:160px;
+  border:10px solid #666;
+}
+
+.navbar .icon {
+  padding-left: 25px;
+  background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
+  background-size: 20px;
+  border-radius: 3px;
+  font-size: 1.1rem;
+}
+
 .red { color: var(--rojo); }
+.green { color: rgb(37, 203, 37); }
 
 .mrg-50 { margin: 50px; }
 .mrg-100 { margin: 100px; }
