@@ -29,7 +29,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rǝvels</title>
         
-        <link rel="icon" type="image/x-icon" href="images/_logo.png">
+        <link rel="icon" type="image/x-icon" href="images/favicon.png">
         
         <meta http-equiv="expires" content="Sat, 07 feb 2016 00:00:00 GMT">
 
