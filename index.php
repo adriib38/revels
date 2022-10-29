@@ -29,9 +29,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rǝvels</title>
         
-        <link rel="icon" type="image/x-icon" href="images/favicon.png">
-        
-        <meta http-equiv="expires" content="Sat, 07 feb 2016 00:00:00 GMT">
+        <link rel="icon" type="image/x-icon" href="images/_logo.png">
 
         <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="styles\style.css">
@@ -77,7 +75,7 @@
             </div>
         <?php } if($sesionIniciada){ ?>
             <!-- 
-                Barra lateral con usuarios a los que sigue el logueado
+                Navbar sesión inciada
             -->
             <?php include('inc/cabecera_logged.inc.php'); ?>
             

@@ -85,47 +85,9 @@
     <body>
         <?php include('inc/cabecera_logged.inc.php'); ?>
        
-        <div class="perfil-cabecera">
-            <img src="images\user-1.png" class="img-perfil">
-            <h2 class="nombre"><?= $userIniciado->name ?></h2>
-            <a href="#actualizar-perfil"><i class="fa-solid fa-gear"></i></a>
-        </div>
-        
-        <!-- 
-            MURO
-            Los revels del usuario loegueado
-        -->
-        <div class="muro">
-            <h2>Últimos Rǝvels</h2>
-            <?php
-                $revels = $red->selectRevelsFromUser($idUser); 
-                //print_r($revels[1]);
-                foreach($revels as $revel){
-                    $userId = $revel->userId;
-                    $nomUser = $red->selectUserById($userId); 
-                    $nomUser = ($nomUser->name);
-            ?>         
-            <div class="revel-en-muro">
-                <div class="revel-muro">
-                    <div class="usuario">
-                        <img src="images/user-1.png">
-                        <p><?= $nomUser ?></p>
-                    </div>
-                </div>
-                <div class="contenido">
-                    <?= $revel->text; ?>
-                </div>
-                <div class="botones">
-                    <i class="fa-solid fa-trash" title="Borrar"></i>
-                    <i class="fa-brands fa-gratipay" title="Fav"></i>
-                    <i class="fa-solid fa-share" title="Compartir"></i>
-                </div>
-            </div>   
-            <?php } ?>
-        </div>
+    
 
-        <!-- FORMULARIO Actualizar -->
-        
+        <!-- FORMULARIO Actualizar -->  
         <form action="#" method="post" class="form-auth form-actualizar bg-blanco">
             <h2 id="actualizar-perfil">Actualizar perfil</h2>
             <label>Nuevo nombre:</label>
@@ -145,7 +107,6 @@
             <br>
             <input type="submit" value="Actualizar">
             <?=$estado??'' ?> 
-   
         </form>
 
 
