@@ -40,7 +40,7 @@
         <?php include('inc/cabecera_logged.inc.php'); ?>
        
         <div class="perfil-cabecera">
-            <img src="images\user-1.png" class="img-perfil">
+            <img src="https://avatars.dicebear.com/api/avataaars/<?= $userIniciado->name ?>.svg" class="img-perfil">
             <h2 class="nombre"><?= $userIniciado->name ?></h2>
         </div>
         
@@ -49,7 +49,10 @@
             Los revels del usuario loegueado
         -->
         <div class="muro">
-            <h2>Últimos Rǝvels</h2>
+            <h2>Tus Rǝvels</h2>
+            <div class="underline"></div>
+
+           
             <?php
                 $revels = $red->selectRevelsFromUser($idUser); 
                 //print_r($revels[1]);
@@ -61,7 +64,7 @@
             <div class="revel-en-muro">
                 <div class="revel-muro">
                     <div class="usuario">
-                        <img src="images/user-1.png">
+                        <img src="https://avatars.dicebear.com/api/avataaars/<?= $userIniciado->name ?>.svg">
                         <p><?= $nomUser ?></p>
                     </div>
                 </div>

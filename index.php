@@ -91,6 +91,7 @@
                 <hr>
                 <ul>
                     <?php
+                        if(count($seguidos) == 0) { echo "<li>Aún no sigues a nadie</li>"; }
                         foreach($seguidos as $seguido){
                             echo  '<li>'.$seguido->name.'</li>';
                         }
@@ -105,6 +106,7 @@
             -->
             <div class="muro">
             <h2>Últimos Rǝvels</h2>
+            <div class="underline"></div>
             <?php
                 $revels = $red->selectRevelsFromUser($idUser); 
                 //print_r($revels[1]);
@@ -116,7 +118,7 @@
                 <div class="revel-en-muro">
                     <div class="revel-muro">
                         <div class="usuario">
-                            <img src="images/user-1.png">
+                            <img src="https://avatars.dicebear.com/api/avataaars/<?= $userIniciado->name ?>.svg">
                             <p><?=$nomUser?></p>
                         </div>
                     </div>

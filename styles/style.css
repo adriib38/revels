@@ -1,11 +1,19 @@
 
 :root {
+  /*
   --amarillo: #FFA400;
   --azul: #009FFD;
   --rojo: #8D0000;
   --gris: #272727;
   --blanco: #EAF6FF;
   --negro: rgb(50, 50, 50);
+  */
+  --amarillo: #ff8906;
+  --azul: #f25f4c;
+  --rojo: #e53170;
+  --gris: #0f0e17;
+  --blanco: #fffffe;
+  --negro: #0f0e17;
 }
 
 * {
@@ -239,6 +247,12 @@ a { text-decoration: none; }
   margin-right: 20px;
 }
 
+
+i:hover{
+  transform: scale(0.9);
+  transition: all .2s ease-in-out; 
+}
+
 .perfil-cabecera {
   text-align: center;
 
@@ -272,7 +286,14 @@ a { text-decoration: none; }
 .carta-usuario img {
   float: left;
   margin-right: 20px;
+}
 
+.lista-resultados {
+  display: inline;
+}
+
+.lista-resultados li {
+  display: inline-block;
 }
 
 .carta-usuario:hover {
@@ -300,7 +321,12 @@ a { text-decoration: none; }
 }
 
 
-button, input[type="button"] {
+button,
+input[type="button"],
+input[type="submit"],
+.revel-en-muro:hover,
+i:hover 
+{  
   cursor: pointer;
 }
 
@@ -311,3 +337,10 @@ button, input[type="button"] {
 .mrg-100 { margin: 100px; }
 
 .pdng-25 { padding: 50px; }
+
+.underline { background: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);width: 200px;height: 2px; }
+
+*::selection {
+  background-color: var(--negro);
+  color: var(--blanco);
+}
