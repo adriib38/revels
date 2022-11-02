@@ -22,11 +22,12 @@
         }
     }
 
+    //Seguir a usuario
     if(!empty($_POST)){
         $idASeguir = $_POST["idASeguir"];
         
         if($red->insertFollow($idUser, $idASeguir)){
-        //if($red->insertFollow(1, 1)){
+        //if($red->insertFollow(6, 5)){
             $estado = "Siguiendo";
         } else {
             $estado = "Error";

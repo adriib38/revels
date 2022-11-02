@@ -29,8 +29,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rǝvels</title>
         
-        <link rel="icon" type="image/x-icon" href="images/_logo.png">
+        <meta name="description" content="Rǝvels es un sitio web de microblogging que permite a los usuarios publicar breves mensajes de texto, llamados 'revels', de hasta 290 caracteres.">
+        <meta name="keywords" content="revels, revel"/>
+        <meta name="author" content="Adrián Benítez" />
+        <meta name="robots" content="index"/>
 
+        <meta property="og:title" content="Revels" />
+        <meta property="og:url" content="http://www.revels.com/" />
+        <meta property="og:image" content="images/revels-banner.png" />
+        <meta property="og:description" content="Rǝvels es un sitio web de microblogging que permite a los usuarios publicar breves mensajes de texto, llamados 'revels', de hasta 290 caracteres." />
+
+        <link rel="icon" type="image/x-icon" href="images/_logo.png">
         <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="styles\style.css">
     </head>
