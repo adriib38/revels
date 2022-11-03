@@ -94,6 +94,10 @@ a { text-decoration: none; }
   width: 320px;
 }
 
+.titulo-incicio {
+  text-shadow: #FF2D95 0px 0px 20px, #4F25CE 0px 0px 30px, #4F25CE 0px 0px 40px, #4F25CE 0px 0px 50px, #4F25CE 0px 0px 75px, 40px 40px 0px rgba(79,37,206,0);
+}
+
 .lista-bienvenida { 
   display: flex; 
   justify-content: center; 
@@ -141,10 +145,13 @@ a { text-decoration: none; }
 }
 
 .form-auth {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 20px;
+  width: 80%;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: var(--gris);
+  max-width: 500px;
 }
+
 
 .form-actualizar {
   margin-left: 10%;

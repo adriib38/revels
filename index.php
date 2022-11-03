@@ -4,7 +4,7 @@
 
     $idUser = $id_session_simulator;
     
-    //$_SESSION = "";
+    $_SESSION = "";
     
     /**
      * Comprobamos si hay sesión iniciada para mostrar "Bienvenida" o "Muro".
@@ -52,7 +52,7 @@
             <?php include('inc/cabecera.inc.php'); ?>
             <div class="mrg-50">
                 <div class="centrado">
-                    <h1>Bienvenido a Rǝvels</h1>
+                    <h1>Bienvenido a <span class="titulo-incicio">Rǝvels</span></h1>
 
                     <div class="lista-bienvenida">
                         <img src="images/mockup.png" width="320px"> 

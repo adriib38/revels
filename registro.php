@@ -66,7 +66,6 @@
             <div class="centrado">
                 
                 <h1>Registro</h1>
-                <article>
                     <form method="post" action="#" class="form-auth bg-amarillo">
                         <input type="text" name="nombre" placeholder="Nombre" value="<?=$_POST['nombre']??'' ?>">
                         <?=$errorNombre??'' ?>
@@ -85,7 +84,6 @@
                         <br>
                         <input type="submit" value="Registrar">
                     </form>
-                </article>
                 <p><a href="#">¿Olvidaste tu contraseña?</a></p>
                 <br>
                 <p>¿Ya tienes cuenta? <a href="login.php">Login</a><p>

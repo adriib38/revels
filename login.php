@@ -33,7 +33,6 @@
             <div class="centrado">
                 
                 <h1>Login</h1>
-                <article>
                     <form method="post" action="#" class="form-auth bg-azul">
                         <input type="text" name="mail" placeholder="Mail" value="<?=$_POST['mail']??'' ?>">
                         <br>
@@ -41,7 +40,6 @@
                         <br>
                         <input type="submit" value="Login">
                     </form>
-                </article>
                 <?=$mensajeInicioFallido??'' ?>
                 <p><a href="#">¿Olvidaste tu contraseña?</a></p>
                 <br>
