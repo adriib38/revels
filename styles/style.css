@@ -2,18 +2,19 @@
 :root {
   /*
   --amarillo: #FFA400;
-  --azul: #009FFD;
+
   --rojo: #8D0000;
   --gris: #272727;
   --blanco: #EAF6FF;
   --negro: rgb(50, 50, 50);
   */
   --amarillo: #ff8906;
-  --azul: #f25f4c;
+  --naranja: #f25f4c;
   --rojo: #e53170;
   --gris: #0f0e17;
   --blanco: #fffffe;
   --negro: #0f0e17;
+  --azul: #009FFD;
 }
 
 * {
@@ -145,13 +146,14 @@ a { text-decoration: none; }
 }
 
 .form-auth {
-  width: 80%;
-  font-size: 1.4rem;
+  width: 90%;
   margin-bottom: 20px;
   color: var(--gris);
   max-width: 500px;
+  min-width: 200px;
+  padding: 10px;
+  border-radius: 4px;
 }
-
 
 .form-actualizar {
   margin-left: 10%;
@@ -159,6 +161,7 @@ a { text-decoration: none; }
 }
 
 .bg-azul { background-color: var(--azul); }
+.bg-naranja { background-color: var(--naranja); }
 .bg-amarillo { background-color: var(--amarillo); } 
 .bg-blanco { background-color: var(--blanco); } 
 
@@ -171,7 +174,7 @@ a { text-decoration: none; }
 }
 
 .form-auth input {
-  width: 500px;
+  width: 90%;
   font-size: 1.4rem;
   margin-bottom: 20px;
   color: var(--gris);
@@ -211,7 +214,7 @@ a { text-decoration: none; }
   border-bottom-right-radius: 40px 40px;
   border-top-right-radius: 40px 40px;
   border-top-left-radius: 40px 40px;
-  border: var(--azul) solid 2px;
+  border: var(--naranja) solid 2px;
 
   padding-top: 20px;
   padding-bottom: 100px;
@@ -317,7 +320,7 @@ i:hover{
 }
 
 .btn-seguir{
-  background-color: var(--azul);
+  background-color: var(--naranja);
   color: var(--blanco);
   border-radius: 4px;
   padding: 4px;

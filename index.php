@@ -44,12 +44,15 @@
         <link rel="stylesheet" href="styles\style.css">
     </head>
     <body>
-
+        
         <?php if(!$sesionIniciada) { ?>
             <!--
                 BIENVENIDA Cuando no hay sesión iniciada
             -->
             <?php include('inc/cabecera.inc.php'); ?>
+            <?php include('inc/bd.inc.php');  todosLosUsuarios() ?>
+            
+
             <div class="mrg-50">
                 <div class="centrado">
                     <h1>Bienvenido a <span class="titulo-incicio">Rǝvels</span></h1>
