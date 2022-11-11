@@ -1,6 +1,7 @@
 <?php
-    include('inc/Red-Objects.php');
+
     include('inc/sesion_pruebas.inc.php');  //BORRAR
+
 
     $idUser = $id_session_simulator;
     
@@ -49,8 +50,15 @@
             <!--
                 BIENVENIDA Cuando no hay sesión iniciada
             -->
-            <?php include('inc/cabecera.inc.php'); ?>
-            <?php include('inc/bd.inc.php');  todosLosUsuarios() ?>
+            <?php
+                include('inc/cabecera.inc.php'); 
+                include('inc/red/bd.inc.php');  
+                $comm = new Comment(2, '5', '3', 'buena tula', 'n');
+   
+                //searchUsers('Ev');
+                deleteComment('1');
+
+            ?>
             
 
             <div class="mrg-50">

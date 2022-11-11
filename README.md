@@ -1,7 +1,7 @@
 
 # Revels
 
-Red social.
+Revels es un proyecto donde
 
 ![linkedin](https://img.shields.io/badge/ESTADO-en%20desarrollo-F18F01?style=for-the-badge)
 
@@ -9,10 +9,10 @@ Red social.
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| Equipo 1 | ![#ff148a](https://via.placeholder.com/10/ff148a?text=+) #ff148a |
-| Equipo 2 | ![#384cff](https://via.placeholder.com/10/384cff?text=+) #384cff |
-| Tablero negras | ![#652A18](https://via.placeholder.com/10/652A18?text=+) #652A18 |
-| Tablero blancas | ![#CCCC92](https://via.placeholder.com/10/CCCC92?text=+) #CCCC92 |
+| Equipo 1 | ![#0f0e17](https://via.placeholder.com/10/0f0e17?text=+) #0f0e17 |
+| Equipo 2 | ![#ff8906](https://via.placeholder.com/10/ff8906?text=+) #ff8906 |
+| Tablero negras | ![#f25f4c](https://via.placeholder.com/10/f25f4c?text=+) #f25f4c |
+| Tablero blancas | ![#009FFD](https://via.placeholder.com/10/CCCC92?text=+) #009FFD |
 
 
 ## Screenshots
@@ -32,13 +32,12 @@ Red social.
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adrián-bntz) 
 
-[![DarkTurtle](https://img.shields.io/badge/vscode_theme-2D2B55?style=for-the-badge&&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=AdrianBenitez.DarkTurtle)
 
+## Agradecimientos
 
-## Acknowledgements
-
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [Canva](https://www.canva.com/)
- - [Pablo Stanley](https://avataaars.com/)
-
+ - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates) - Documentación
+ - [Awesome README](https://github.com/matiassingers/awesome-readme) - Documentación
+ - [Canva](https://www.canva.com/) - Imageners
+ - [Pixabay](https://pixabay.com/) - Imagenes
+ - [Pablo Stanley](https://avataaars.com/) - Iconos
+ - Alex Torres
