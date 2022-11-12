@@ -1,10 +1,13 @@
 <?php
-    include('inc/Red-Objects.php');
-   // include('inc/Red-Arrays.php');
+    //include('inc/Red-Objects.php');
+    include('inc\red\bd.inc.php');
     include('inc/sesion_pruebas.inc.php');  //BORRAR
 
     $idUser = $id_session_simulator;
-
+    if($idUser != 0) {
+        $sesionIniciada = true;
+        $userIniciado = selectUserById($idUser);
+    }
     /**
     * recibe los datos del formulario de búsqueda de usuarios y mostrará una
     * lista de usuarios que coincidan con la búsqueda con un botón para seguir.
@@ -15,7 +18,7 @@
     //Buscamos usuarios. Aseguramos que lleguen respuestas 
     if(!empty($_GET)){
         $busqueda = trim($_GET["users"]);
-        $resultado = $red->searchUsers($busqueda);
+        $resultado = searchUsers($busqueda);
       
         if(!empty($resultado)){
             $resultadosEncontrados = true;
@@ -26,7 +29,7 @@
     if(!empty($_POST)){
         $idASeguir = $_POST["idASeguir"];
         
-        if($red->insertFollow($idUser, $idASeguir)){
+        if(insertFollow($idUser, $idASeguir)){
         //if($red->insertFollow(6, 5)){
             $estado = "Siguiendo";
         } else {
@@ -57,13 +60,13 @@
     -->
     <ul class="lista-resultados">
         <?php if($resultadosEncontrados){ 
-        foreach($resultado as $user){
-        ?>
+           
+        foreach($resultado as $user){ ?>
             <li class="carta-usuario">
-                <img src="https://avatars.dicebear.com/api/avataaars/<?= $user->name ?>.svg" alt="Avatar" style="width:15%">
+                <img src="https://avatars.dicebear.com/api/avataaars/<?=$user->usuario?>.svg" alt="Avatar" style="width:15%">
                 <div>
-                    <h4><b><?= $user->name ?> </b></h4>
-                    <p><?= $user->mail ?></p>
+                    <h4><b><?=$user->usuario ?> </b></h4>
+                    <p><?=$user->email?></p>
             
                     <!-- Boton seguir al usuario encontrado -->
                     <form action="#" method="post">
@@ -78,13 +81,8 @@
     <?php } if(!$resultadosEncontrados){ ?> 
         <h2>No hay usuarios con ese nombre: <?= $busqueda ??'' ?></h2>
     <?php } ?>
-
-
-    
     
     </div>
-
-
 
 </body>
 </html>

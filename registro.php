@@ -1,6 +1,8 @@
 <?php
-    include('inc/Red-Objects.php');
+    //include('inc/Red-Objects.php');
+    include('inc\red\bd.inc.php');
     include('inc/regex.inc.php');
+
 
     $hayErrores = false;
 
@@ -41,8 +43,8 @@
         }
 
         if(!$hayErrores){
-            $newUser = $red->insertUser($_POST["nombre"], $_POST["contrasenya"], $_POST["mail"]);
-            echo $newUser;
+            $newUser = new User(0, $_POST["nombre"], $_POST["contrasenya"], $_POST["mail"]);
+            insertUser($newUser);
         }
 
     }

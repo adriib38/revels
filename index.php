@@ -1,26 +1,18 @@
 <?php
 
     include('inc/sesion_pruebas.inc.php');  //BORRAR
-
-
-    $idUser = $id_session_simulator;
-    
-    $_SESSION = "";
+    include('inc\red\bd.inc.php');
     
     /**
      * Comprobamos si hay sesión iniciada para mostrar "Bienvenida" o "Muro".
      * 
      */
-    $sesionIniciada = false;
-    if(!empty($_SESSION)){
+    $idUser = $id_session_simulator;
+    if($idUser != 0) {
         $sesionIniciada = true;
-
-        $red = $_SESSION['red'];
-       
-       
-        $userIniciado = $red->selectUserById($idUser);
-       // print_r($userIniciado->name);
+        $userIniciado = selectUserById($idUser);
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -53,14 +45,8 @@
             <?php
                 include('inc/cabecera.inc.php'); 
                 include('inc/red/bd.inc.php');  
-                $comm = new Comment(2, '5', '3', 'buena tula', 'n');
-   
-                //searchUsers('Ev');
-                deleteComment('1');
-
             ?>
             
-
             <div class="mrg-50">
                 <div class="centrado">
                     <h1>Bienvenido a <span class="titulo-incicio">Rǝvels</span></h1>
@@ -103,8 +89,7 @@
                 Slidebar usuarios seguidos
             -->
             <?php 
-                $seguidos = $red->selectFollowsFromUser($idUser); 
-                //print_r($seguidos);
+                $seguidos = selectFollowsFromUser($idUser); 
             ?>         
             <nav id="slidebar-seguidos">
                 <p>Seguidos</p>
@@ -113,7 +98,7 @@
                     <?php
                         if(count($seguidos) == 0) { echo "<li>Aún no sigues a nadie</li>"; }
                         foreach($seguidos as $seguido){
-                            echo  '<li>'.$seguido->name.'</li>';
+                            echo  '<li>'.$seguido->usuario.'</li>';
                         }
                     ?>
                 </ul>
@@ -128,27 +113,30 @@
             <h2>Últimos Rǝvels</h2>
             <div class="underline"></div>
             <?php
-                $revels = $red->selectRevelsFromUser($idUser); 
-                //print_r($revels[1]);
+            $revels = selectRevelsFromUser($idUser); 
                 foreach($revels as $revel){
-                    $userId = $revel->userId;
-                    $nomUser = $red->selectUserById($userId); 
-                    $nomUser = ($nomUser->name);
+                    $userId = $revel->id;
+                    $nomUser = selectUserById($revel->userid)['usuario']; 
+                    $imagenUser = 'https://avatars.dicebear.com/api/avataaars/'.$nomUser.'.svg';
+                   
             ?>         
                 <div class="revel-en-muro">
                     <div class="revel-muro">
                         <div class="usuario">
-                            <img src="https://avatars.dicebear.com/api/avataaars/<?= $userIniciado->name ?>.svg">
+                            <img src="<?=$imagenUser?>">
                             <p><?=$nomUser?></p>
                         </div>
                     </div>
                     <div class="contenido">
-                        <?=  $revel->text; ?>
+                        <?=$revel->texto;?>
+                    </div>
+                    <div class="botones">
+                        <i class="fa-solid fa-trash" title="Borrar"></i>
+                        <i class="fa-brands fa-gratipay" title="Fav"></i>
+                        <i class="fa-solid fa-share" title="Compartir"></i>
                     </div>
                 </div>   
-                <?php 
-                    }
-                ?>
+                <?php } ?>
             </div>
         <?php 
             }

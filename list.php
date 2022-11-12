@@ -1,23 +1,37 @@
 
 <?php
-    include('inc/Red-Objects.php');
+    //include('inc/Red-Objects.php');
+    include('inc\red\bd.inc.php');
+
     include('inc/regex.inc.php');
     include('inc/sesion_pruebas.inc.php');  //BORRAR
-/**
- * mostrará una lista de todas las revelaciones escritas por el usuario junto con un
- * botón para poder eliminar cada una de ellas.
- * 
- * 
- */
+    /**
+     * mostrará una lista de todas las revelaciones escritas por el usuario junto con un
+     * botón para poder eliminar cada una de ellas.
+     * 
+     * 
+     */
 
     $idUser = $id_session_simulator;
+    if($idUser != 0) {
+        $sesionIniciada = true;
+        $userIniciado = selectUserById($idUser);
+    }
 
-    $red = $_SESSION['red'];    
-        
-    $userIniciado = $red->selectUserById($idUser);
+    
+    $existeElUsuario = false;
+    $perfilDelUsuarioLogeado = false;
 
-    if(!empty($_POST)){
-
+    if(!empty($_GET)){
+        //Se muestra el perfil del usuario llegado por $_GET.
+        //Accede al usuario y comprueba si existe.
+        if($usuarioMostrar = selectUserById($_GET["id"])) { $existeElUsuario = true; }
+        $perfilDelUsuarioLogeado = false;
+    } else {
+        //Se mostrará el perfil del usuario logeado.
+        $existeElUsuario = true;
+        $usuarioMostrar = selectUserById($userIniciado["id"]);
+        $perfilDelUsuarioLogeado = true;
     }
 
 ?>
@@ -39,9 +53,19 @@
     <body>
         <?php include('inc/cabecera_logged.inc.php'); ?>
        
+
+        <?php 
+            if(!$existeElUsuario){
+                echo 'No encontrado.';
+            }
+         
+            if($existeElUsuario){
+        ?>
+
         <div class="perfil-cabecera">
-            <img src="https://avatars.dicebear.com/api/avataaars/<?= $userIniciado->name ?>.svg" class="img-perfil">
-            <h2 class="nombre"><?= $userIniciado->name ?></h2>
+            <img src="https://avatars.dicebear.com/api/avataaars/<?=$usuarioMostrar["usuario"]?>.svg" class="img-perfil">
+            <h2 class="nombre"><?= $usuarioMostrar['usuario'] ?></h2>
+            <?php if($perfilDelUsuarioLogeado){ echo '<i class="fa-solid fa-pencil"></i><a href="account.php">Editar</a>'; }?>
         </div>
         
         <!-- 
@@ -49,37 +73,36 @@
             Los revels del usuario loegueado
         -->
         <div class="muro">
-            <h2>Tus Rǝvels</h2>
+            <h2>Últimos Rǝvels</h2>
             <div class="underline"></div>
-
            
             <?php
-                $revels = $red->selectRevelsFromUser($idUser); 
+                $revels = selectRevelsFromUser($usuarioMostrar["id"]); 
                 //print_r($revels[1]);
                 foreach($revels as $revel){
-                    $userId = $revel->userId;
-                    $nomUser = $red->selectUserById($userId); 
-                    $nomUser = ($nomUser->name);
-            ?>         
-            <div class="revel-en-muro">
-                <div class="revel-muro">
-                    <div class="usuario">
-                        <img src="https://avatars.dicebear.com/api/avataaars/<?= $userIniciado->name ?>.svg">
-                        <p><?= $nomUser ?></p>
-                    </div>
-                </div>
-                <div class="contenido">
-                    <?= $revel->text; ?>
-                </div>
-                <div class="botones">
-                    <i class="fa-solid fa-trash" title="Borrar"></i>
-                    <i class="fa-brands fa-gratipay" title="Fav"></i>
-                    <i class="fa-solid fa-share" title="Compartir"></i>
-                </div>
-            </div>   
-          <?php } ?>
+                    $userId = $revel->id;
+                    $nomUser = selectUserById($revel->userid)['usuario']; 
+                    $imagenUser = 'https://avatars.dicebear.com/api/avataaars/'.$nomUser.'.svg';
+                    ?>         
+                    <div class="revel-en-muro">
+                            <div class="revel-muro">
+                                <div class="usuario">
+                                    <img src="<?=$imagenUser?>">
+                                    <p><?=$nomUser?></p>
+                                </div>
+                            </div>
+                            <div class="contenido">
+                                <?=$revel->texto;?>
+                            </div>
+                            <div class="botones">
+                                <i class="fa-solid fa-trash" title="Borrar"></i>
+                                <i class="fa-brands fa-gratipay" title="Fav"></i>
+                                <i class="fa-solid fa-share" title="Compartir"></i>
+                            </div>
+                        </div>   
+                <?php } ?>
         </div>
-
+        <?php } ?>
 
 
         <?php include('inc/footer.inc.php'); ?>

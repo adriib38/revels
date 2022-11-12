@@ -23,8 +23,7 @@
         unset($conexion);
         
         $usuarios = $resultado->fetch();
-        print_r($usuarios);
-        
+
     }
 
     /**
@@ -40,6 +39,7 @@
         unset($conexion);
 
         $returnUser = $resultado->fetch();
+
 
         return $returnUser;
     }
@@ -103,7 +103,7 @@
     /**
     * Devuelve un array de Users que sigue el Usuario del $id.
     */
-    function selectFollowersFromUser($id){
+    function selectFollowsFromUser($id){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
@@ -116,7 +116,7 @@
 
         while($revelObtenido = $resultado->fetch()){
             $followed = selectUserById($revelObtenido['userfollowed']);
-            $usr = new Revel($followed['id'], $followed['usuario'], $followed['contrasenya'], $followed['email']);
+            $usr = new User($followed['id'], $followed['usuario'], $followed['contrasenya'], $followed['email']);
             array_push($followers, $usr);
         }
         return $followers;
@@ -248,6 +248,7 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
+        print_r($userActualizar);
         $idActualizar = $userActualizar->id;
         try{
             $consulta = $conexion->prepare('UPDATE users
@@ -346,6 +347,30 @@
         }   
     }
 
+    //NO FUNCIONA
+    function comprobarSiLeSigue($followed, $follower){
+        global $dsn, $user, $password, $opciones;
+        $conexion = new PDO($dsn, $user, $password, $opciones);
+
+        try{
+            $resultado = $conexion->query('SELECT * FROM `follows` WHERE userid like "'.$follower.'" AND userfollowed LIKE "'.$followed.'";');
+            unset($conexion);
+            
+            $filas = $resultado->rowCount();
+         echo $filas;
+            if($filas == 0){
+                return false;
+            }else{
+                return true;
+            }
+            
+          
+            return false;
+        }catch(PDOException $e){
+           
+        }   
+    }
+
     /**
     * Crea una relacion follow
     */
@@ -353,6 +378,7 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
+        if(comprobarSiLeSigue($followed, $follower)) { return false; }
         try{
             $consulta = $conexion->prepare('INSERT INTO follows
                 (userid, userfollowed) 

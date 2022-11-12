@@ -1,12 +1,13 @@
 <?php
-    include('inc/Red-Objects.php');
+    //include('inc/Red-Objects.php');
+    include('inc\red\bd.inc.php');
     
     if(!empty($_POST)){
-        if($red->login($_POST["mail"], $_POST["contrasenya"])){
+        if(login($_POST["mail"], $_POST["contrasenya"])){
             /*
              * Sesión inciada correctamente
              */
-            echo 'login ok';
+        
             header('Location: index.php');
         } else {
             $mensajeInicioFallido = '<p class="red">Inicio fallido</p>';

@@ -1,12 +1,13 @@
 
 <?php
-    include('inc/Red-Objects.php');
+    //include('inc/Red-Objects.php');
+    include('inc\red\bd.inc.php');
+
     include('inc/regex.inc.php');
     include('inc/sesion_pruebas.inc.php');  //BORRAR
 /**
  * si no recibe datos mostrará un formulario cumplimentado con los datos del 
  * usuario para poder modificarlos. Si recibe datos de dicho formulario los almacenará.
- * 
  * 
  */
 
@@ -16,14 +17,16 @@
   *
   */
     $idUser = $id_session_simulator;
+    if($idUser != 0) {
+        $sesionIniciada = true;
+        $userIniciado = selectUserById($idUser);
+    }
 
-    $red = $_SESSION['red'];    
-        
-    $userIniciado = $red->selectUserById($idUser);
-
-    $nuevoNombre = $userIniciado->name;
-    $nuevaContrasenya = $userIniciado->pass;
-    $nuevoMail = $userIniciado->mail;
+    //Campos de los nuevos valores, son los mismos que ahora, por si no se cambian.
+    $viejoId = $userIniciado["id"];
+    $nuevoNombre = $userIniciado["usuario"];
+    $nuevaContrasenya = $userIniciado["contrasenya"];
+    $nuevoMail = $userIniciado["email"];
 
 
     if(!empty($_POST)){
@@ -39,7 +42,7 @@
                 $nuevoNombre = $_POST["nombre"];
             }
         }
-
+     
         if(!preg_match($contrasenya, $_POST["contrasenya"] )){
             $errorContrasenya = '<br><span class="red"> -Contraseña no valida, mínimo 8 caracteres, numeros y letras</span>';
             $hayErrores = true;
@@ -48,7 +51,7 @@
         }
 
         if(!empty($_POST["mail"])){
-            if(!preg_match($nombre, $_POST["mail"] )){
+            if(!preg_match($mail, $_POST["mail"] )){
                 $errorMail = '<br><span class="red"> -Mail no valido</span>';
                 $hayErrores = true;
             }else{
@@ -56,8 +59,10 @@
             }
         }
 
+
         if(!$hayErrores){
-            $seHaActualizado = $red->updateUser($idUser, $nuevoNombre, $nuevaContrasenya, $nuevoMail);
+            $newUser = new User($viejoId, $nuevoNombre, $nuevaContrasenya, $nuevoMail);
+            $seHaActualizado = updateUser($newUser);
             if($seHaActualizado){
                 $estado = '<br><span class="green"> ¡Perfil actualizado!</span>';
                 
@@ -100,9 +105,9 @@
             <input type="text" name="mail" placeholder="Mail" value="<?=$_POST['mail']??'' ?>">
             <?=$errorMail??'' ?>
             <br>
-            <label>Confirmar o cambiar contraseña:</label>
+            <label class="required">Confirmar o cambiar contraseña:</label>
             <br>
-            <input type="password" name="contrasenya" placeholder="">
+            <input class="required" type="password" required name="contrasenya" placeholder="">
             <?=$errorContrasenya??'' ?>
             <br>
             <input type="submit" value="Actualizar">
