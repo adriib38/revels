@@ -1,12 +1,17 @@
 <?php
-    //include('inc/Red-Objects.php');
-    include('inc\red\bd.inc.php');
-    include('inc/sesion_pruebas.inc.php');  //BORRAR
+    include('inc\red\bd.inc.php');  
 
-    $idUser = $id_session_simulator;
-    if($idUser != 0) {
-        $sesionIniciada = true;
-        $userIniciado = selectUserById($idUser);
+    session_start();
+
+    /**
+     * Si existe el objeto user (Sesión iniciada)
+     */
+    if(isset($_SESSION['user'])){
+        print_r($_SESSION);
+        $sesionIniciada = true; 
+    }else {
+        echo 'NO INICIADA';
+        $sesionIniciada = false;
     }
     /**
     * recibe los datos del formulario de búsqueda de usuarios y mostrará una
@@ -14,7 +19,6 @@
     */
 
     $resultadosEncontrados = false;
-
     //Buscamos usuarios. Aseguramos que lleguen respuestas 
     if(!empty($_GET)){
         $busqueda = trim($_GET["users"]);
@@ -29,7 +33,7 @@
     if(!empty($_POST)){
         $idASeguir = $_POST["idASeguir"];
         
-        if(insertFollow($idUser, $idASeguir)){
+        if(insertFollow($_SESSION['user']->id, $idASeguir)){
         //if($red->insertFollow(6, 5)){
             $estado = "Siguiendo";
         } else {

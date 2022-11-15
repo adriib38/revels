@@ -4,7 +4,18 @@
     include('inc\red\bd.inc.php');
 
     include('inc/regex.inc.php');
-    include('inc/sesion_pruebas.inc.php');  //BORRAR
+
+    session_start();
+
+    if(isset($_SESSION['user'])){
+        print_r($_SESSION);
+        $sesionIniciada = true;
+        
+    }else {
+        echo 'NO INICIADA';
+        $sesionIniciada = false;
+    }
+
 /**
  * si no recibe datos mostrará un formulario cumplimentado con los datos del 
  * usuario para poder modificarlos. Si recibe datos de dicho formulario los almacenará.
@@ -16,12 +27,7 @@
   * menos la contraseña, que siempre debe cambiar.
   *
   */
-    $idUser = $id_session_simulator;
-    if($idUser != 0) {
-        $sesionIniciada = true;
-        $userIniciado = selectUserById($idUser);
-    }
-
+    
     //Campos de los nuevos valores, son los mismos que ahora, por si no se cambian.
     $viejoId = $userIniciado["id"];
     $nuevoNombre = $userIniciado["usuario"];

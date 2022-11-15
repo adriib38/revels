@@ -1,17 +1,29 @@
 <?php
 
-    include('inc/sesion_pruebas.inc.php');  //BORRAR
-    include('inc\red\bd.inc.php');
+    include('inc\red\bd.inc.php');  
+
+    session_start();
+
+    /**
+     * Si existe el objeto user (Sesión iniciada)
+     */
+    if(isset($_SESSION['user'])){
+        print_r($_SESSION);
+        $sesionIniciada = true; 
+    }else {
+        echo 'NO INICIADA';
+        $sesionIniciada = false;
+    }
     
     /**
      * Comprobamos si hay sesión iniciada para mostrar "Bienvenida" o "Muro".
-     * 
+     *    
+     *  $idUser = $id_session_simulator;
+     *       if($idUser != 0) {
+     *           $sesionIniciada = true;
+     *           $userIniciado = selectUserById($idUser);
+     *       }
      */
-    $idUser = $id_session_simulator;
-    if($idUser != 0) {
-        $sesionIniciada = true;
-        $userIniciado = selectUserById($idUser);
-    }
 
 ?>
 <!DOCTYPE html>
@@ -38,14 +50,12 @@
     </head>
     <body>
         
-        <?php if(!$sesionIniciada) { ?>
+        <?php if(!$sesionIniciada) { 
+              include('inc/cabecera.inc.php');
+        ?>
             <!--
                 BIENVENIDA Cuando no hay sesión iniciada
             -->
-            <?php
-                include('inc/cabecera.inc.php'); 
-                include('inc/red/bd.inc.php');  
-            ?>
             
             <div class="mrg-50">
                 <div class="centrado">
@@ -79,27 +89,30 @@
                 </div>
                 </div>
             </div>
-        <?php } if($sesionIniciada){ ?>
-            <!-- 
-                Navbar sesión inciada
-            -->
-            <?php include('inc/cabecera_logged.inc.php'); ?>
-            
-            <!--
-                Slidebar usuarios seguidos
-            -->
+        <?php } if($sesionIniciada){ 
+
+            /**
+             * Navbar sesion iniciada
+             */
+            include('inc/cabecera_logged.inc.php');
+        ?> 
             <?php 
-                $seguidos = selectFollowsFromUser($idUser); 
+                $id = $_SESSION['user']->id;
+                echo $id;
+                $seguidos = selectFollowsFromUser($id); 
             ?>         
             <nav id="slidebar-seguidos">
                 <p>Seguidos</p>
                 <hr>
                 <ul>
                     <?php
-                        if(count($seguidos) == 0) { echo "<li>Aún no sigues a nadie</li>"; }
-                        foreach($seguidos as $seguido){
-                            echo  '<li>'.$seguido->usuario.'</li>';
-                        }
+                        if(count($seguidos) == 0) { 
+                            echo "<li>Aún no sigues a nadie</li>"; 
+                        }else{
+                            foreach($seguidos as $seguido){
+                                echo  '<li><a href="list.php?id='.$seguido->id.'"> '.$seguido->usuario.'</a></li>';
+                            }
+                        }                      
                     ?>
                 </ul>
             </nav>
@@ -113,18 +126,18 @@
             <h2>Últimos Rǝvels</h2>
             <div class="underline"></div>
             <?php
-            $revels = selectRevelsFromUser($idUser); 
+            $revels = selectRevelsFromUser($_SESSION['user']->id); 
                 foreach($revels as $revel){
                     $userId = $revel->id;
-                    $nomUser = selectUserById($revel->userid)['usuario']; 
-                    $imagenUser = 'https://avatars.dicebear.com/api/avataaars/'.$nomUser.'.svg';
+
+                    $imagenUser = 'https://avatars.dicebear.com/api/avataaars/'.$_SESSION['user']->usuario.'.svg';
                    
             ?>         
                 <div class="revel-en-muro">
                     <div class="revel-muro">
                         <div class="usuario">
                             <img src="<?=$imagenUser?>">
-                            <p><?=$nomUser?></p>
+                            <p><?=$_SESSION['user']->usuario?></p>
                         </div>
                     </div>
                     <div class="contenido">

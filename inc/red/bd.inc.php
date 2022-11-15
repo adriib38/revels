@@ -34,14 +34,25 @@
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
         $returnUser = null;
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM `users` WHERE `id` LIKE '.$id.'');
-        unset($conexion);
 
-        $returnUser = $resultado->fetch();
+        try{
+            //Consulta SELECT
+            $resultado = $conexion->query('SELECT * FROM `users` WHERE `id` LIKE '.$id.'');
+            unset($conexion);
 
+            $filas = $resultado->rowCount();
+            if($filas == 0){ 
+                return false;
+            };
 
-        return $returnUser;
+            $userObtenido = $resultado->fetch();
+            $usr = new User($userObtenido['id'], $userObtenido['usuario'], $userObtenido['contrasenya'], $userObtenido['email']);
+            return $usr;
+        }catch(Exception $e){
+            return false; 
+        }
+
+        return false;
     }
 
     /**
@@ -111,12 +122,12 @@
 
         $followers = array();
         //Consulta SELECT
-        $resultado = $conexion->query('SELECT userfollowed FROM `follows` WHERE userid LIKE "'.$id.'"');
+        $resultado = $conexion->query('SELECT * FROM `follows` WHERE userid LIKE "'.$id.'"');
         unset($conexion);
 
-        while($revelObtenido = $resultado->fetch()){
-            $followed = selectUserById($revelObtenido['userfollowed']);
-            $usr = new User($followed['id'], $followed['usuario'], $followed['contrasenya'], $followed['email']);
+        while($res = $resultado->fetch()){
+            $followed = selectUserById($res['userfollowed']);
+            $usr = new User($followed->id, $followed->usuario, $followed->contrasenya, $followed->email);
             array_push($followers, $usr);
         }
         return $followers;
@@ -270,7 +281,9 @@
 
     /**
     * Si el email coincide con la contraseña devuelve el usuario; Si no devuelve false
-    */
+    *
+	* @deprecated desde login2
+	*/
     function login($email, $pass){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
@@ -282,8 +295,7 @@
             $filas = $resultado->rowCount();
             if($filas != 0){
                 $usrObtenido = $resultado->fetch();
-                $usr = new User($usrObtenido['id'], $usrObtenido['usuario'], $usrObtenido['contrasenya'], $usrObtenido['email']);
-                return $usr;
+              
             }else{
                 return false;
             }
@@ -291,6 +303,28 @@
         }catch(PDOException $e){
             return false;
         }
+    }
+
+    /**
+     * Login con contraseñas encriptadas
+     */
+    function login2($email, $pass){
+        global $dsn, $user, $password, $opciones;
+        $conexion = new PDO($dsn, $user, $password, $opciones);
+
+        $resultado = $conexion->query('SELECT contrasenya, id FROM users WHERE email like "'.$email.'";');
+        unset($conexion);
+
+        $filas = $resultado->rowCount();
+        if($filas != 0){
+            $passObtenida = $resultado->fetch();
+            if(password_verify($pass, $passObtenida["contrasenya"])){
+                return $passObtenida["id"];
+            }else {
+                return false;
+            }
+        }
+
     }
 
     /**
@@ -315,7 +349,7 @@
 
             return true;
         }catch(PDOException $e){
-
+            print_r($e);
             return false;
         }   
     }
@@ -348,52 +382,57 @@
     }
 
     //NO FUNCIONA
-    function comprobarSiLeSigue($followed, $follower){
+    function leSigue($followed, $follower){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
         try{
-            $resultado = $conexion->query('SELECT * FROM `follows` WHERE userid like "'.$follower.'" AND userfollowed LIKE "'.$followed.'";');
+            $resultado = $conexion->query('SELECT * FROM follows WHERE userid = '.$follower.' AND userfollowed = '.$followed.';');
             unset($conexion);
             
             $filas = $resultado->rowCount();
-         echo $filas;
-            if($filas == 0){
-                return false;
-            }else{
+            
+            print_r($filas);
+            if($filas > 0){
                 return true;
+            }else{
+                return false;
             }
             
-          
-            return false;
+      
         }catch(PDOException $e){
-           
+           print_r($e);
         }   
     }
 
     /**
     * Crea una relacion follow
     */
-    function insertFollow($followed, $follower){
+    function insertFollow($follower, $followed){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
-        if(comprobarSiLeSigue($followed, $follower)) { return false; }
-        try{
-            $consulta = $conexion->prepare('INSERT INTO follows
-                (userid, userfollowed) 
-                VALUES (?, ?);');
-            $consulta->bindParam(1, $followed);
-            $consulta->bindParam(2, $follower);
+        if(leSigue($followed, $follower)) { 
+            echo 'Ya le sigues';
+            return false; 
+        }else{
 
-            $consulta->execute();
+            try{
+                $consulta = $conexion->prepare('INSERT INTO follows
+                    (userid, userfollowed) 
+                    VALUES (?, ?);');
+                $consulta->bindParam(1, $follower);
+                $consulta->bindParam(2, $followed);
 
-            unset($conexion);
-          
-            return true;
-        }catch(PDOException $e){
-            return false;
-        }   
+                $consulta->execute();
+
+                unset($conexion);
+            
+                return true;
+            }catch(PDOException $e){
+                return false;
+            }   
+        }
     }
 
     /**

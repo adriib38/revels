@@ -1,29 +1,28 @@
 <?php
 
-    include('inc/sesion_pruebas.inc.php');  //BORRAR
-    include('inc\red\bd.inc.php');
+    include('inc\red\bd.inc.php');  
+
+    session_start();
 
     /**
-     *  si no recibe datos mostrará un formulario para introducir una nueva revelación.
-     *   Si recibe los datos del formulario anterior guardará la nueva revelación y redirigirá a
-     *	la página de dicha revelación.
+     * Si existe el objeto user (Sesión iniciada)
      */
-
-    $idUser = $id_session_simulator;
-    if($idUser != 0) {
-        $sesionIniciada = true;
-        $userIniciado = selectUserById($idUser);
+    if(isset($_SESSION['user'])){
+        print_r($_SESSION);
+        $sesionIniciada = true; 
+    }else {
+        echo 'NO INICIADA';
+        header('Location: index.php');
+        $sesionIniciada = false;
     }
 
     if(!empty($_POST)){
-        if($_POST["texto"] != '' || $_POST["texto"] != ' '){
 
-        }else{
-            $newRevel = new Revel(0, $userIniciado["id"], $_POST["texto"], 0);
-            insertRevel($newRevel);
-        }
-
+        $newRevel = new Revel(0, $_SESSION['user']->id, $_POST["texto"], 0);
+        insertRevel($newRevel);
     }
+
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,14 +38,14 @@
 </head>
 <body>
     <?php
-        include('inc/cabecera.inc.php'); 
-        $img = 'https://avatars.dicebear.com/api/avataaars/'.$userIniciado["usuario"].'.svg';
+        include('inc/cabecera_logged.inc.php'); 
+        $img = 'https://avatars.dicebear.com/api/avataaars/'.$_SESSION['user']->usuario.'.svg';
     ?>   
     <h2>Nuevo Revel</h2>
     <div class="publicar-revel">
         <div class="usuario">
             <img src="<?=$img?>">
-            <h3><?=$userIniciado["usuario"]?></h3>
+            <h3><?=$_SESSION['user']->usuario?></h3>
         </div>
         <form action="#" method="post">
             <textarea name="texto" id="texto-nuevo-revel" placeholder="¿Qué está pasando?"></textarea>

@@ -1,13 +1,25 @@
 <?php
-    //include('inc/Red-Objects.php');
     include('inc\red\bd.inc.php');
-    
-    if(!empty($_POST)){
-        if(login($_POST["mail"], $_POST["contrasenya"])){
+
+    session_start();
+
+    /**
+     * Si la sesión está iniciada: se rediridige a index.php
+     */
+    if(isset($_SESSION['user'])){
+        header('Location: index.php');
+    }
+
+    if(!empty($_POST)){  
+
+        $id = login2($_POST["mail"], $_POST["contrasenya"]);
+        if($id){
             /*
-             * Sesión inciada correctamente
-             */
-        
+            * Sesión inciada correctamente
+            */
+            $usr = selectUserById($id);
+            $_SESSION['user'] =  $usr;
+
             header('Location: index.php');
         } else {
             $mensajeInicioFallido = '<p class="red">Inicio fallido</p>';
@@ -16,7 +28,7 @@
     
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">

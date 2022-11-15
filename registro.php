@@ -3,7 +3,6 @@
     include('inc\red\bd.inc.php');
     include('inc/regex.inc.php');
 
-
     $hayErrores = false;
 
     $formularioEnviado = false;
@@ -43,7 +42,8 @@
         }
 
         if(!$hayErrores){
-            $newUser = new User(0, $_POST["nombre"], $_POST["contrasenya"], $_POST["mail"]);
+            $passEncriptada = password_hash($_POST["contrasenya"], PASSWORD_DEFAULT);
+            $newUser = new User(0, $_POST["nombre"], $passEncriptada, $_POST["mail"]);
             insertUser($newUser);
         }
 

@@ -1,22 +1,26 @@
 
 <?php
-    //include('inc/Red-Objects.php');
-    include('inc\red\bd.inc.php');
 
+    include('inc\red\bd.inc.php');
     include('inc/regex.inc.php');
-    include('inc/sesion_pruebas.inc.php');  //BORRAR
+
+    session_start();
+
+    if(isset($_SESSION['user'])){
+        print_r($_SESSION);
+        $sesionIniciada = true;
+        
+    }else {
+        echo 'NO INICIADA';
+        $sesionIniciada = false;
+    }
+
     /**
      * mostrará una lista de todas las revelaciones escritas por el usuario junto con un
      * botón para poder eliminar cada una de ellas.
      * 
      * 
      */
-
-    $idUser = $id_session_simulator;
-    if($idUser != 0) {
-        $sesionIniciada = true;
-        $userIniciado = selectUserById($idUser);
-    }
 
     
     $existeElUsuario = false;
@@ -26,11 +30,12 @@
         //Se muestra el perfil del usuario llegado por $_GET.
         //Accede al usuario y comprueba si existe.
         if($usuarioMostrar = selectUserById($_GET["id"])) { $existeElUsuario = true; }
+        print_r($usuarioMostrar);
         $perfilDelUsuarioLogeado = false;
     } else {
         //Se mostrará el perfil del usuario logeado.
         $existeElUsuario = true;
-        $usuarioMostrar = selectUserById($userIniciado["id"]);
+        $usuarioMostrar = $_SESSION['user'];
         $perfilDelUsuarioLogeado = true;
     }
 
@@ -63,8 +68,8 @@
         ?>
 
         <div class="perfil-cabecera">
-            <img src="https://avatars.dicebear.com/api/avataaars/<?=$usuarioMostrar["usuario"]?>.svg" class="img-perfil">
-            <h2 class="nombre"><?= $usuarioMostrar['usuario'] ?></h2>
+            <img src="https://avatars.dicebear.com/api/avataaars/<?=$usuarioMostrar->usuario ?>.svg" class="img-perfil">
+            <h2 class="nombre"><?= $usuarioMostrar->usuario ?></h2>
             <?php if($perfilDelUsuarioLogeado){ echo '<i class="fa-solid fa-pencil"></i><a href="account.php">Editar</a>'; }?>
         </div>
         
@@ -75,24 +80,22 @@
         <div class="muro">
             <h2>Últimos Rǝvels</h2>
             <div class="underline"></div>
-           
+       
             <?php
-                $revels = selectRevelsFromUser($usuarioMostrar["id"]); 
-                //print_r($revels[1]);
+                $revels = selectRevelsFromUser($usuarioMostrar->id); 
+
                 foreach($revels as $revel){
-                    $userId = $revel->id;
-                    $nomUser = selectUserById($revel->userid)['usuario']; 
-                    $imagenUser = 'https://avatars.dicebear.com/api/avataaars/'.$nomUser.'.svg';
-                    ?>         
+                    $imagenUser = 'https://avatars.dicebear.com/api/avataaars/'.$usuarioMostrar->usuario.'.svg';
+                    ?>   
                     <div class="revel-en-muro">
                             <div class="revel-muro">
                                 <div class="usuario">
-                                    <img src="<?=$imagenUser?>">
-                                    <p><?=$nomUser?></p>
+                                    <img src="<?=$imagenUser ?>">
+                                    <p><?=$usuarioMostrar->usuario ?></p>
                                 </div>
                             </div>
                             <div class="contenido">
-                                <?=$revel->texto;?>
+                                <?=$revel->texto ?>
                             </div>
                             <div class="botones">
                                 <i class="fa-solid fa-trash" title="Borrar"></i>

@@ -2,8 +2,8 @@
     <ul>
         <a href="index.php"><li><img src="images/favicon.png" width="40px"></li></a> 
         <a href="index.php"><li>Inicio</li></a>
-        <a href="#" title="New"><li><i class="fa-solid fa-plus"></i></li></a>
-        <a href="#" title="Close"><li><i class="fa-solid fa-right-from-bracket"></i></li></a>
+        <a href="new.php" title="New"><li><i class="fa-solid fa-plus"></i></li></a>
+        <a href="close.php" title="Close"><li><i class="fa-solid fa-right-from-bracket"></i></li></a>
         <a href="account.php" title="User"><li><i  class="fa-solid fa-user"></i></li></a>
         
     </ul>
