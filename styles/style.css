@@ -1,13 +1,5 @@
 
-:root {
-  /*
-  --amarillo: #FFA400;
-
-  --rojo: #8D0000;
-  --gris: #272727;
-  --blanco: #EAF6FF;
-  --negro: rgb(50, 50, 50);
-  */
+:root {  
   --amarillo: #ff8906;
   --naranja: #f25f4c;
   --rojo: #e53170;
@@ -26,7 +18,7 @@
 
 body {
   background: var(--gris);
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding-bottom: 10%;
   color: var(--negro);
 }
@@ -35,10 +27,8 @@ h1, h2, h3, h4, p, span, li, ul { color: aliceblue;}
 
 a,
 a:visited {
-  color: inherit;
-  text-decoration: none; 
+  color: white;
   font-style: normal;
-
 }
 
 .navbar { 
@@ -105,10 +95,12 @@ a:visited {
 }
 
 .titulo-incicio {
+  font-family: 'Poppins', sans-serif;
   animation: 2s anim-shadow ease-out infinite;
 }
 
 .lista-bienvenida { 
+  color: white;
   display: flex; 
   justify-content: center; 
   margin-top: 50px;

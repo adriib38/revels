@@ -46,6 +46,11 @@
 
         <link rel="icon" type="image/x-icon" href="images/_logo.png">
         <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Poppins:wght@500;600&display=swap" rel="stylesheet"> 
+
         <link rel="stylesheet" href="styles\style.css">
     </head>
     <body>
