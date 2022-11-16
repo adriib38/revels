@@ -27,8 +27,9 @@ h1, h2, h3, h4, p, span, li, ul { color: aliceblue;}
 
 a,
 a:visited {
-  color: white;
+  color: inherit;
   font-style: normal;
+  text-decoration: none;
 }
 
 .navbar { 
@@ -220,11 +221,10 @@ a:visited {
 .muro {
   margin-left: 30%;
   margin-top: 10px;
-
 }
 
 .revel-en-muro {
-  width: 80%;
+  width: 500px;
   background-color: var(--blanco);
   border-bottom-right-radius: 40px 40px;
   border-top-right-radius: 40px 40px;
@@ -422,19 +422,15 @@ i:hover
 
 .underline { background: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);width: 200px;height: 2px; }
 
-
-
 .required::after {
   content: '*';
   color: red;
 }
 
-
 *::selection {
   background-color: var(--negro);
   color: var(--blanco);
 }
-
 
 @keyframes anim-shadow {
   0%{

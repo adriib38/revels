@@ -139,6 +139,7 @@
                    
             ?>         
                 <div class="revel-en-muro">
+                <a href="revel.php?id=<?=$revel->id??'' ?>">Ver revel</a>
                     <div class="revel-muro">
                         <div class="usuario">
                             <img src="<?=$imagenUser?>">
@@ -153,6 +154,7 @@
                         <i class="fa-brands fa-gratipay" title="Fav"></i>
                         <i class="fa-solid fa-share" title="Compartir"></i>
                     </div>
+             
                 </div>   
                 <?php } ?>
             </div>
