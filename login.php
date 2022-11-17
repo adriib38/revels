@@ -1,5 +1,5 @@
 <?php
-    include('inc\red\bd.inc.php');
+    require_once('inc/red/bd.inc.php');
 
     session_start();
 

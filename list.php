@@ -1,8 +1,8 @@
 
 <?php
 
-    include('inc\red\bd.inc.php');
-    include('inc/regex.inc.php');
+    require_once('inc/red/bd.inc.php');
+    require_once('inc/regex.inc.php');
 
     session_start();
 
@@ -56,7 +56,7 @@
         <link rel="stylesheet" href="styles\style.css">
     </head>
     <body>
-        <?php include('inc/cabecera_logged.inc.php'); ?>
+        <?php require_once('inc/cabecera_logged.inc.php'); ?>
        
 
         <?php 
@@ -108,7 +108,7 @@
         <?php } ?>
 
 
-        <?php include('inc/footer.inc.php'); ?>
+        <?php require_once('inc/footer.inc.php'); ?>
     </body>
     
 </html>

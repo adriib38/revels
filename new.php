@@ -1,6 +1,6 @@
 <?php
 
-    include('inc\red\bd.inc.php');  
+    require_once('inc/red/bd.inc.php');  
 
     session_start();
 
@@ -17,7 +17,6 @@
     }
 
     if(!empty($_POST)){
-
         $newRevel = new Revel(0, $_SESSION['user']->id, $_POST["texto"], 0);
         insertRevel($newRevel);
     }
@@ -38,7 +37,7 @@
 </head>
 <body>
     <?php
-        include('inc/cabecera_logged.inc.php'); 
+        require_once('inc/cabecera_logged.inc.php'); 
         $img = 'https://avatars.dicebear.com/api/avataaars/'.$_SESSION['user']->usuario.'.svg';
     ?>   
     <h2>Nuevo Revel</h2>

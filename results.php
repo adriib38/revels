@@ -1,5 +1,5 @@
 <?php
-    include('inc\red\bd.inc.php');  
+    require_once('inc/red/bd.inc.php');  
 
     session_start();
 
@@ -57,7 +57,7 @@
 </head>
 <body>
     
-    <?php include('inc/cabecera_logged.inc.php'); ?>
+    <?php require_once('inc/cabecera_logged.inc.php'); ?>
     <div class="mrg-50">
     <!-- Si SI hay resultados 
     Se imprime una lista con los usuarios.

@@ -1,8 +1,8 @@
 <?php
   
-    include('inc\Revel.inc.php');
-    include('inc\User.inc.php');
-    include('inc\Comment.inc.php');
+    require_once('inc/Revel.inc.php');
+    require_once('inc/User.inc.php');
+    require_once('inc/Comment.inc.php');
 
     $user = 'revel';
     $password = 'lever';
@@ -317,9 +317,9 @@
 
         $filas = $resultado->rowCount();
         if($filas != 0){
-            $passObtenida = $resultado->fetch();
-            if(password_verify($pass, $passObtenida["contrasenya"])){
-                return $passObtenida["id"];
+            $usuario = $resultado->fetch();
+            if(password_verify($pass, $usuario["contrasenya"])){
+                return $usuario["id"];
             }else {
                 return false;
             }

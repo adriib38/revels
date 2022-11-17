@@ -1,7 +1,7 @@
 <?php
-    //include('inc/Red-Objects.php');
-    include('inc\red\bd.inc.php');
-    include('inc/regex.inc.php');
+
+    require_once('inc/red/bd.inc.php');
+    require_once('inc/regex.inc.php');
 
     $hayErrores = false;
 
@@ -62,7 +62,7 @@
     </head>
     <body>
         
-        <?php include('inc/cabecera.inc.php'); ?>
+        <?php require_once('inc/cabecera.inc.php'); ?>
       
         <div class="mrg-100">
             <div class="centrado">
@@ -92,6 +92,6 @@
             </div>
         </div>
 
-        <?php include('inc/footer.inc.php'); ?>
+        <?php require_once('inc/footer.inc.php'); ?>
     </body>
 </html>

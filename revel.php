@@ -1,6 +1,6 @@
 <?php
     
-    include('inc\red\bd.inc.php');  
+    require_once('inc/red/bd.inc.php');  
 
     session_start();
 
@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="styles\style.css">
 </head>
     <body>
-        <?php include('inc/cabecera_logged.inc.php'); ?>
+        <?php require_once('inc/cabecera_logged.inc.php'); ?>
         <div class="mrg-50">
             <div class="revel-en-muro">
                 <div class="revel-muro">

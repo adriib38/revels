@@ -1,6 +1,6 @@
 <?php
 
-    include('inc\red\bd.inc.php');  
+    require_once('inc/red/bd.inc.php');  
 
     session_start();
 
@@ -56,7 +56,7 @@
     <body>
         
         <?php if(!$sesionIniciada) { 
-              include('inc/cabecera.inc.php');
+              require_once('inc/cabecera.inc.php');
         ?>
             <!--
                 BIENVENIDA Cuando no hay sesión iniciada
@@ -99,7 +99,7 @@
             /**
              * Navbar sesion iniciada
              */
-            include('inc/cabecera_logged.inc.php');
+            require_once('inc/cabecera_logged.inc.php');
         ?> 
             <?php 
                 $id = $_SESSION['user']->id;
@@ -161,6 +161,6 @@
         <?php 
             }
         ?>
-        <?php include('inc/footer.inc.php'); ?>
+        <?php require_once('inc/footer.inc.php'); ?>
     </body>
 </html>
