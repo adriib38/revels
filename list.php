@@ -39,6 +39,12 @@
         $perfilDelUsuarioLogeado = true;
     }
 
+    //Unfollow
+    if(isset($_GET['unfollow'])){
+        deleteFollow($_SESSION['user']->id, $_GET['unfollow']);
+        header('Location: list.php?id='.$_GET['unfollow'].'');
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,7 +77,17 @@
             <img src="https://avatars.dicebear.com/api/avataaars/<?=$usuarioMostrar->usuario ?>.svg" class="img-perfil">
             <h2 class="nombre"><?= $usuarioMostrar->usuario ?></h2>
             <?php if($perfilDelUsuarioLogeado){ echo '<i class="fa-solid fa-pencil"></i><a href="account.php">Editar</a>'; }?>
+            <?php 
+                if(!$perfilDelUsuarioLogeado){ 
+                    if(!leSigue($_SESSION['user']->id, $_GET['unfollow'])){
+                        echo '<a href="list.php?unfollow='.$usuarioMostrar->id.'">Unfollow</a>'; 
+                    }
+                }
+            ?>
+
         </div>
+        
+        
         
         <!-- 
             MURO

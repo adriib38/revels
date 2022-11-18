@@ -259,7 +259,6 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
-        print_r($userActualizar);
         $idActualizar = $userActualizar->id;
         try{
             $consulta = $conexion->prepare('UPDATE users
@@ -349,7 +348,6 @@
 
             return true;
         }catch(PDOException $e){
-            print_r($e);
             return false;
         }   
     }
@@ -392,13 +390,11 @@
             
             $filas = $resultado->rowCount();
             
-            print_r($filas);
             if($filas > 0){
                 return true;
             }else{
                 return false;
             }
-            
       
         }catch(PDOException $e){
            print_r($e);
@@ -428,6 +424,29 @@
 
                 unset($conexion);
             
+                return true;
+            }catch(PDOException $e){
+                return false;
+            }   
+        }
+    }
+
+    /**
+    * Crea una relacion follow
+    */
+    function deleteFollow($follower, $followed){
+        global $dsn, $user, $password, $opciones;
+        $conexion = new PDO($dsn, $user, $password, $opciones);
+
+        if(!leSigue($followed, $follower)) { 
+            echo 'No le sigues';
+            return false; 
+        }else{
+
+            try{
+                $resultado = $conexion->query('DELETE FROM follows WHERE userid = '.$follower.' AND userfollowed = '.$followed.';');
+                unset($conexion);
+
                 return true;
             }catch(PDOException $e){
                 return false;

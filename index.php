@@ -15,6 +15,7 @@
         $sesionIniciada = false;
     }
     
+   
     /**
      * Comprobamos si hay sesión iniciada para mostrar "Bienvenida" o "Muro".
      *    
@@ -103,7 +104,6 @@
         ?> 
             <?php 
                 $id = $_SESSION['user']->id;
-                echo $id;
                 $seguidos = selectFollowsFromUser($id); 
             ?>         
             <nav id="slidebar-seguidos">
