@@ -1,6 +1,6 @@
 
 <?php
-    //include('inc/Red-Objects.php');
+
     include('inc\red\bd.inc.php');
 
     include('inc/regex.inc.php');
@@ -29,10 +29,10 @@
   */
     
     //Campos de los nuevos valores, son los mismos que ahora, por si no se cambian.
-    $viejoId = $userIniciado["id"];
-    $nuevoNombre = $userIniciado["usuario"];
-    $nuevaContrasenya = $userIniciado["contrasenya"];
-    $nuevoMail = $userIniciado["email"];
+    $viejoId = $_SESSION['user']->id;
+    $nuevoNombre = $_SESSION['user']->usuario;
+    $nuevaContrasenya = $_SESSION['user']->contrasenya;
+    $nuevoMail = $_SESSION['user']->email;
 
 
     if(!empty($_POST)){
@@ -65,15 +65,16 @@
             }
         }
 
-
         if(!$hayErrores){
-            $newUser = new User($viejoId, $nuevoNombre, $nuevaContrasenya, $nuevoMail);
+            $passEncriptada = password_hash($nuevaContrasenya, PASSWORD_DEFAULT);
+            $newUser = new User($viejoId, $nuevoNombre, $passEncriptada, $nuevoMail);
             $seHaActualizado = updateUser($newUser);
             if($seHaActualizado){
                 $estado = '<br><span class="green"> ¡Perfil actualizado!</span>';
-                
+               
             }
         }
+
 
     }
 
@@ -93,33 +94,33 @@
         <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="styles\style.css">
     </head>
-    <body>
+    <body class="bg-gris">
         <?php include('inc/cabecera_logged.inc.php'); ?>
        
-    
+        <div class="mrg-50">
 
-        <!-- FORMULARIO Actualizar -->  
-        <form action="#" method="post" class="form-auth form-actualizar bg-blanco">
-            <h2 id="actualizar-perfil">Actualizar perfil</h2>
-            <label>Nuevo nombre:</label>
-            <br>
-            <input type="text" name="nombre" placeholder="Nombre" value="<?=$_POST['nombre']??'' ?>">
-            <?=$errorNombre??'' ?>
-            <br>
-            <label>Nuevo mail:</label>
-            <br>
-            <input type="text" name="mail" placeholder="Mail" value="<?=$_POST['mail']??'' ?>">
-            <?=$errorMail??'' ?>
-            <br>
-            <label class="required">Confirmar o cambiar contraseña:</label>
-            <br>
-            <input class="required" type="password" required name="contrasenya" placeholder="">
-            <?=$errorContrasenya??'' ?>
-            <br>
-            <input type="submit" value="Actualizar">
-            <?=$estado??'' ?> 
-        </form>
-
+            <!-- FORMULARIO Actualizar -->  
+            <form action="#" method="post" class="form-auth form-actualizar bg-blanco">
+                <h2 id="actualizar-perfil">Actualizar perfil</h2>
+                <label>Nuevo nombre:</label>
+                <br>
+                <input type="text" name="nombre" placeholder="Nombre" value="<?=$_POST['nombre']??'' ?>">
+                <?=$errorNombre??'' ?>
+                <br>
+                <label>Nuevo mail:</label>
+                <br>
+                <input type="text" name="mail" placeholder="Mail" value="<?=$_POST['mail']??'' ?>">
+                <?=$errorMail??'' ?>
+                <br>
+                <label class="required">Confirmar o cambiar contraseña:</label>
+                <br>
+                <input class="required" type="password" required name="contrasenya" placeholder="">
+                <?=$errorContrasenya??'' ?>
+                <br>
+                <input type="submit" value="Actualizar">
+                <?=$estado??'' ?> 
+            </form>
+        </div>
 
         <?php include('inc/footer.inc.php'); ?>
     </body>

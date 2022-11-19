@@ -57,7 +57,7 @@
     <body>
         
         <?php if(!$sesionIniciada) { 
-              require_once('inc/cabecera.inc.php');
+            require_once('inc/cabecera.inc.php');
         ?>
             <!--
                 BIENVENIDA Cuando no hay sesión iniciada
@@ -96,7 +96,6 @@
                 </div>
             </div>
         <?php } if($sesionIniciada){ 
-
             /**
              * Navbar sesion iniciada
              */
@@ -128,38 +127,55 @@
                 AHORA ES DE TUS REVELS
             -->
             <div class="muro">
-            <h2>Últimos Rǝvels</h2>
-            <div class="underline"></div>
-            <?php
-            $revels = selectRevelsFromUser($_SESSION['user']->id); 
-                foreach($revels as $revel){
-                    $userId = $revel->id;
+                <h2>Últimos Rǝvels</h2>
+                <div class="underline"></div>
+                    
+                <?php
+                    $muro = array();
+                    foreach($seguidos as $usuario){
+                        $revelsDeUsuario = selectRevelsForUser($usuario->id);
+                            
+                        foreach($revelsDeUsuario as $revel){
+                            array_push($muro, $revel);
+                        }
+                    }
+                    
+                    //Ordena el array de revels $muro
+                    usort($muro, function ($a, $b) {
+                        return strcmp($b->fecha, $a->fecha);
+                    });
 
-                    $imagenUser = 'https://avatars.dicebear.com/api/avataaars/'.$_SESSION['user']->usuario.'.svg';
-                   
-            ?>         
-                <div class="revel-en-muro">
-                <a href="revel.php?id=<?=$revel->id??'' ?>">Ver revel</a>
+                    //Imprime revels de muro
+                    foreach($muro as $revel){    
+                        $usuario = selectUserById($revel->userid);
+                        $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
+                        $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
+                ?>
+              
                     <div class="revel-muro">
                         <div class="usuario">
-                            <img src="<?=$imagenUser?>">
-                            <p><?=$_SESSION['user']->usuario?></p>
+                            <img src="<?=$imagenUsuario ?>">
+                            <a href="list.php?id=<?=$usuario->id?>"><?=$usuario->usuario ?></a>  
                         </div>
+                        <a href="revel.php?id=<?=$revel->id?>">
+                            <div class="contenido">
+                                <?=$revel->texto ?>
+                                <br>
+                                <span class="fecha"><?=$fecha ?></span>
+                            </div>
+                            <div class="botones">
+                                <i class="fa-brands fa-gratipay" title="Fav"></i>
+                                <i class="fa-solid fa-share" title="Compartir"></i>
+                            </div>
+                        </a>
                     </div>
-                    <div class="contenido">
-                        <?=$revel->texto;?>
-                    </div>
-                    <div class="botones">
-                        <i class="fa-solid fa-trash" title="Borrar"></i>
-                        <i class="fa-brands fa-gratipay" title="Fav"></i>
-                        <i class="fa-solid fa-share" title="Compartir"></i>
-                    </div>
-             
-                </div>   
-                <?php } ?>
-            </div>
+                
+           
         <?php 
+           }
+        //Fin si la sesión está iniciada.
             }
+        
         ?>
         <?php require_once('inc/footer.inc.php'); ?>
     </body>

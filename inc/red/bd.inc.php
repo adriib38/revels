@@ -198,7 +198,7 @@
         unset($conexion);
 
         while($com = $resultado->fetch()){
-            $comment = new Comment($com['id'], $com['revelid'], $com['userid'], $com['fecha'], $com['texto']);
+            $comment = new Comment($com['id'], $com['revelid'], $com['userid'], $com['texto'], $com['fecha']);
             array_push($comments, $comment);
         }
         return($comments);
@@ -372,14 +372,17 @@
             $consulta->execute();
 
             unset($conexion);
-          
+            print_r($consulta);
             return true;
         }catch(PDOException $e){
+            print_r($e);
             return false;
         }   
     }
 
-    //NO FUNCIONA
+    /**
+     * Comprueba si un usuario es seguido por otro.
+     */
     function leSigue($followed, $follower){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
