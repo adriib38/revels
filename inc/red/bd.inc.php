@@ -246,10 +246,44 @@
 
             unset($conexion);
 
-            return true;
+            return $consulta;
+
+         
         }catch(PDOException $e){
             return false;
         }   
+    }
+
+    /**
+     * Devuelve el ultimo revel de un usuario
+     */
+    function selectLastRevelByUser($id){
+        global $dsn, $user, $password, $opciones;
+        $conexion = new PDO($dsn, $user, $password, $opciones);
+        
+        try{
+            //Consulta SELECT
+            $resultado = $conexion->query('
+            SELECT * FROM `revels` 
+            WHERE userid = '.$id.'
+            ORDER BY fecha DESC
+            LIMIT 1;
+            ');
+
+            unset($conexion);
+
+            $filas = $resultado->rowCount();
+            if($filas == 0){ 
+                return false;
+            };
+
+            $revelObtenido = $resultado->fetch();
+            $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha']);
+            return $rev;
+        }catch(Exception $e){
+            print_r($e);
+            return false;
+        }
     }
 
     /**
@@ -538,6 +572,28 @@
         }   
     }
 
+    function deleteUser($id){
+        global $dsn, $user, $password, $opciones;
+        $conexion = new PDO($dsn, $user, $password, $opciones);
+
+        if(!selectUserById($id)){
+            return array();
+        }
+        try{
+            $consulta = $conexion->prepare('DELETE FROM users
+                WHERE `id` LIKE ?');
+            $consulta->bindParam(1, $id);
+
+            $consulta->execute();
+
+            unset($conexion);
+            
+            return true;
+        }catch(PDOException $e){
+            print_r($e);
+            return false;
+        }   
+    }
 
 
 ?>

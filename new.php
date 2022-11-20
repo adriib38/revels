@@ -18,10 +18,14 @@
 
     if(!empty($_POST)){
         $newRevel = new Revel(0, $_SESSION['user']->id, $_POST["texto"], 0);
-        insertRevel($newRevel);
+        
+        //Se publica el revel
+        if(insertRevel($newRevel)){
+            //Se redirige a la página del revel
+            $revel = selectLastRevelByUser($_SESSION['user']->id);
+            header('Location: revel.php?id='.$revel->id.'');
+        }
     }
-
-    
 ?>
 <!DOCTYPE html>
 <html lang="es">

@@ -12,12 +12,13 @@
 
     session_start();
 
-    $id = $_SESSION['user']->id;
     /**
      * Si no existe el objeto user (sesión no iniciada) redirige
      */
    
-    if(isset($_POST)){
+    if(isset($_POST['check'])){
+        $id = $_SESSION['user']->id;     
+
         $revels = selectRevelsForUser($_SESSION['user']->id);
         foreach($revels as $revel){
             $comments = selectCommentsFromRevel($revel->id);
@@ -26,18 +27,17 @@
             }
             deleteRevel($revel->id);
         }
-   
-        foreach($revels as $revel){
-            deleteRevel($revel->id);
+
+          try{
+            if(deleteUser($id)){
+                echo 'Eliminada';
+            }
+        }catch(Exception $e){
+          
         }
 
-        
-        session_destroy();
+       // header('Location: cancel.php');    
     }
-
-    header('Location: index.php');    
-
-
 
 ?>
 <!DOCTYPE html>
@@ -60,9 +60,9 @@
 <body>
     <?php
         require_once('inc/cabecera_logged.inc.php');
-    ?>
+    ?> 
+    <h2>Seguro que desea eliminar su cuenta?</h2>
     <form action="#" method="post">
-        <h2>Seguro que desea eliminar su cuenta?</h2>
         <input type="checkbox" name="check">
         <input type="submit" value="Eliminar">
     </form>

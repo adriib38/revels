@@ -115,7 +115,10 @@
        
             <?php
                 $revels = selectRevelsFromUser($usuarioMostrar->id); 
-
+                //Ordena el array de revels $muro
+                usort($revels, function ($a, $b) {
+                    return strcmp($b->fecha, $a->fecha);
+                });
                 foreach($revels as $revel){
                     $usuario = selectUserById($revel->userid);
                     $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';

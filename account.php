@@ -75,7 +75,6 @@
             }
         }
 
-
     }
 
 ?>
@@ -120,6 +119,7 @@
                 <input type="submit" value="Actualizar">
                 <?=$estado??'' ?> 
             </form>
+            <p><a href="cancel.php">Eliminar cuenta</a></p>
         </div>
 
         <?php include('inc/footer.inc.php'); ?>

@@ -132,14 +132,20 @@
                     
                 <?php
                     $muro = array();
+                    //Añade revels de mis seguidos a mi muro
                     foreach($seguidos as $usuario){
                         $revelsDeUsuario = selectRevelsForUser($usuario->id);
-                            
                         foreach($revelsDeUsuario as $revel){
                             array_push($muro, $revel);
                         }
                     }
                     
+                    //Añade mis revels a los de mis seguidores (mi muro)
+                    $misRevels = selectRevelsForUser($_SESSION['user']->id);
+                    foreach($misRevels as $miRevel){
+                        array_push($muro, $miRevel);
+                    }
+
                     //Ordena el array de revels $muro
                     usort($muro, function ($a, $b) {
                         return strcmp($b->fecha, $a->fecha);
