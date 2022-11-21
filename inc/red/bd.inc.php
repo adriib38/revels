@@ -62,14 +62,19 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
-        $user = null;
+
         //Consulta SELECT
         $resultado = $conexion->query('SELECT * FROM users WHERE usuario LIKE "'.$name.'"');
         unset($conexion);
 
-        $user = $resultado->fetch();
+        $filas = $resultado->rowCount();
+        if($filas == 0){ 
+            return false;
+        };
+
+        $usuario = $resultado->fetch();
         
-        return $user;
+        return $usuario;
     }
 
     /**
@@ -79,14 +84,18 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
-        $user = null;
         //Consulta SELECT
         $resultado = $conexion->query('SELECT * FROM users WHERE email LIKE "'.$email.'"');
         unset($conexion);
 
-        $user = $resultado->fetch();
+        $filas = $resultado->rowCount();
+        if($filas == 0){ 
+            return false;
+        };
+
+        $usuario = $resultado->fetch();
  
-        return $user;
+        return $usuario;
     }
 
     /**
@@ -406,7 +415,7 @@
             $consulta->execute();
 
             unset($conexion);
-            print_r($consulta);
+
             return true;
         }catch(PDOException $e){
             print_r($e);

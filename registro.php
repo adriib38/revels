@@ -9,6 +9,7 @@
 
     $contrasenyaValor = '';
     $repContrasenya = '';
+    $errorDatosExisten = false;
 
     //Aseguramos que lleguen respuestas antes de validarlas
     if(!empty($_POST)){
@@ -44,7 +45,24 @@
         if(!$hayErrores){
             $passEncriptada = password_hash($_POST["contrasenya"], PASSWORD_DEFAULT);
             $newUser = new User(0, $_POST["nombre"], $passEncriptada, $_POST["mail"]);
-            insertUser($newUser);
+
+            //Compruebas si existe un uusario con el mismo nombre
+            if(selectUserByUserName($_POST["nombre"])){
+                $errorNombre = '<br><span class="red"> Ya existe un usuario con ese nombre.</span>';
+                $errorDatosExisten = true;
+            }
+
+            //Comprueba si existe un usuario con el mismo email
+            if(selectUserByEmail($_POST["mail"])){
+                $errorMail = '<br><span class="red"> Ya existe un usuario con ese mail.</span>';
+                $errorDatosExisten = true;
+            }
+      
+            //Si es unico se crea
+            if(!$errorDatosExisten){
+                insertUser($newUser);
+                header('Location: login.php');
+            }
         }
 
     }
@@ -81,8 +99,10 @@
                         <input type="password" name="rep-contrasenya" placeholder="Repetir contaseña" value="<?=$_POST['rep-contrasenya']??'' ?>">
                         <?=$errorRepContrasenya??'' ?>
                         <br>
-                        <input type="text" name="fecha-nacimiento" placeholder="Fecha de nacimiento" value="<?=$_POST['fecha-nacimiento']??'' ?>">
+                        <input type="text" name="fecha-nacimiento" placeholder="dd/mm/aaaa" value="<?=$_POST['fecha-nacimiento']??'' ?>">
                         <?=$errorFecha??'' ?>
+                        <br>
+                        <?=$errorDatosExisten??'' ?>
                         <br>
                         <input type="submit" value="Registrar">
                     </form>

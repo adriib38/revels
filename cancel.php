@@ -18,25 +18,32 @@
    
     if(isset($_POST['check'])){
         $id = $_SESSION['user']->id;     
-
-        $revels = selectRevelsForUser($_SESSION['user']->id);
+        
+        $revels = selectRevelsForUser($id);
+        //Elimina cada revel del usuario
         foreach($revels as $revel){
             $comments = selectCommentsFromRevel($revel->id);
+            //Elimina cada comentario de su revel
             foreach($comments as $comment){
                 deleteComment($comment->id);
             }
             deleteRevel($revel->id);
         }
 
-          try{
-            if(deleteUser($id)){
-                echo 'Eliminada';
-            }
-        }catch(Exception $e){
-          
+        //Elimina todos los follows
+        $follows = selectFollowsFromUser($id);
+        foreach($follows as $follow){
+            print_r($follow->id);
+            deleteFollow($id, $follow->id);
         }
-
-       // header('Location: cancel.php');    
+        
+        //Elimina la cuenta de usuario
+        if(deleteUser($id)){
+            echo 'Eliminada';
+        }
+       
+        session_destroy();
+        header('Location: index.php');
     }
 
 ?>

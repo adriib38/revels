@@ -1,9 +1,9 @@
 
 <?php
 
-    include('inc\red\bd.inc.php');
+    require_once('inc/red/bd.inc.php');
 
-    include('inc/regex.inc.php');
+    require_once('inc/regex.inc.php');
 
     session_start();
 
@@ -33,8 +33,8 @@
     $nuevoNombre = $_SESSION['user']->usuario;
     $nuevaContrasenya = $_SESSION['user']->contrasenya;
     $nuevoMail = $_SESSION['user']->email;
-
-
+    $errorDatosExisten = false;
+    
     if(!empty($_POST)){
         //Si el usuario ha escrito en un campo pero no cumple sintacticamente, no se actualizará.
         $hayErrores = false;
@@ -66,12 +66,30 @@
         }
 
         if(!$hayErrores){
+            
+            //Compruebas si existe un uusario con el mismo nombre
+            if(selectUserByUserName($nuevoNombre)){
+                $errorNombre = '<br><span class="red"> Ya existe un usuario con ese nombre.</span>';
+                $errorDatosExisten = true;
+            }
+
+            //Comprueba si existe un usuario con el mismo email
+            if(selectUserByEmail($nuevoMail)){
+                $errorMail = '<br><span class="red"> Ya existe un usuario con ese mail.</span>';
+                $errorDatosExisten = true;
+            }
+      
+            //Si es unico se crea
+            if(!$errorDatosExisten){
+                insertUser($newUser);
+                header('Location: login.php');
+            }
+            
             $passEncriptada = password_hash($nuevaContrasenya, PASSWORD_DEFAULT);
             $newUser = new User($viejoId, $nuevoNombre, $passEncriptada, $nuevoMail);
             $seHaActualizado = updateUser($newUser);
             if($seHaActualizado){
                 $estado = '<br><span class="green"> ¡Perfil actualizado!</span>';
-               
             }
         }
 
