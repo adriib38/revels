@@ -1,6 +1,6 @@
 
 :root {  
-  --amarillo: #ff8906;
+  --amarillo: #ffa400;
   --naranja: #f25f4c;
   --rojo: #e53170;
   --negro: #0f0e17;
@@ -19,9 +19,13 @@
 
 body {
   background: var(--negro);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Manrope', sans-serif;
   padding-bottom: 10%;
   color: var(--negro);
+}
+
+.revel-muro {
+  font-family: 'Poppins', sans-serif;
 }
 
 h1, h2, h3, h4, p, li, ul { color: aliceblue;}
