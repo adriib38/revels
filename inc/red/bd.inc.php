@@ -111,8 +111,8 @@
 
         $revels = array();
         //Consulta SELECT
-        //$resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
-        $resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, users.id, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$id.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC; ');
+        $resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
+        //$resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, users.id, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$id.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC; ');
 
         unset($conexion);
 
@@ -123,7 +123,7 @@
 
         while($revelObtenido = $resultado->fetch()){
             if(isset($revelObtenido['id'])){
-                $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], $revelObtenido['comments']);
+                $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], 0);
                 array_push($revels, $rev);
             }
         }
@@ -131,7 +131,7 @@
         return $revels;
     }
 
-    function selectRevelsAngel($miId, $id){
+    function selectRevelsMuro($id){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
@@ -140,7 +140,7 @@
         $revels = array();
         //Consulta SELECT
         //$resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
-        $resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, users.id, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$miId.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC; ');
+        $resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$id.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC;');
 
         unset($conexion);
 
@@ -202,7 +202,7 @@
 
             $revelObtenido = $resultado->fetch();
 
-            $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], $revelObtenido['comments']);
+            $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], 0);
             return $rev;
         }catch(Exception $e){
             return false;

@@ -8,7 +8,6 @@
      * Si existe el objeto user (Sesión iniciada)
      */
     if(isset($_SESSION['user'])){
-        print_r($_SESSION);
         $sesionIniciada = true; 
     }else {
         echo 'NO INICIADA';
@@ -171,15 +170,14 @@
                         return strcmp($b->fecha, $a->fecha);
                     });
                     */
-                    foreach(){
-                        
-                    }
-                    print_r($muro);
+                    $muro = selectRevelsMuro($_SESSION['user']->id);
+                   
                     //Imprime revels de muro
                     foreach($muro as $revel){    
                         $usuario = selectUserById($revel->userid);
                         $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
                         $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
+
 
                 ?>
               

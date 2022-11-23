@@ -120,7 +120,7 @@
                 usort($revels, function ($a, $b) {
                     return strcmp($b->fecha, $a->fecha);
                 });
-                print_r($revels);
+
                 foreach($revels as $revel){
                     $usuario = selectUserById($revel->userid);
                     $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
@@ -139,8 +139,6 @@
                         </div>
                         </a>
                         <div class="botones">
-                            <i class="fa-brands fa-gratipay" title="Fav"></i>
-                            <i class="fa-solid fa-share" title="Compartir"></i>
                             <?php
                                 if($perfilDelUsuarioLogeado){
                                     echo '<a href="delete.php?id='.$revel->id.'"><i class="fa-solid fa-trash" title="Compartir"></i></a>';

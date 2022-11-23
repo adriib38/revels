@@ -27,10 +27,7 @@
             }
         }else{
             $textoVacio = '<span class="red">No puedes publicar un revel vacío</span>';
-        
-
         }
-        
        
     }
 ?>

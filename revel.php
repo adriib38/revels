@@ -8,7 +8,7 @@
        
         $revel = selectRevel($_GET['id']);
         $usuario = selectUserById($revel->userid);
-
+        $comments = selectCommentsFromRevel($revel->id);
     }
 ?>
 <!DOCTYPE html>
@@ -29,9 +29,9 @@
 </head>
     <body>
         <?php require_once('inc/cabecera_logged.inc.php'); 
-                $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
-                $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
-                print_r($revel);
+            $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
+            $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
+            print_r($revel);
         ?>
         <div class="muro">
             <div class="revel-muro">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="botones">
                         <i class="fa-solid fa-share" title="Comentar"></i>
-                        <span><?=$revel->comentarios?></span>
+                        <span><?=count($comments)?></span>
                     </div>
                 </a>
             </div>
@@ -60,7 +60,7 @@
                 <input type="submit" value="Enviar">
             </form>
             <?php
-                $comments = selectCommentsFromRevel($revel->id);
+                
                 foreach($comments as $comment){
                     $usuario = selectUserById($comment->userid);
                     $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
