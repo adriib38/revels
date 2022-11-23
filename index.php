@@ -150,8 +150,9 @@
                     
                 <?php
                     $muro = array();
+
+                    /*
                     //Añade revels de mis seguidos a mi muro
-                    
                     foreach($seguidos as $segui){
                         $revelsDeUsuario = selectRevelsFromUser($segui->id);
                         foreach($revelsDeUsuario as $revelU){
@@ -169,12 +170,17 @@
                     usort($muro, function ($a, $b) {
                         return strcmp($b->fecha, $a->fecha);
                     });
-
+                    */
+                    foreach(){
+                        
+                    }
+                    print_r($muro);
                     //Imprime revels de muro
                     foreach($muro as $revel){    
                         $usuario = selectUserById($revel->userid);
                         $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
                         $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
+
                 ?>
               
                     <div class="revel-muro">
@@ -190,7 +196,7 @@
                             </div>
                             <div class="botones">
                                 <i class="fa-solid fa-share" title="Comentar"></i>
-                                <span></span>
+                                <span><?=$revel->comentarios??'' ?></span>
                             </div>
                         </a>
                     </div>
