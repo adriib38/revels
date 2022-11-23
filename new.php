@@ -17,14 +17,21 @@
     }
 
     if(!empty($_POST)){
-        $newRevel = new Revel(0, $_SESSION['user']->id, $_POST["texto"], 0);
+        if($_POST['texto'] != ''){
+            $newRevel = new Revel(0, $_SESSION['user']->id, $_POST["texto"], 0, 0);
+            //Se publica el revel
+            if(insertRevel($newRevel)){
+                //Se redirige a la página del revel
+                $revel = selectLastRevelByUser($_SESSION['user']->id);
+                header('Location: revel.php?id='.$revel->id.''); 
+            }
+        }else{
+            $textoVacio = '<span class="red">No puedes publicar un revel vacío</span>';
         
-        //Se publica el revel
-        if(insertRevel($newRevel)){
-            //Se redirige a la página del revel
-            $revel = selectLastRevelByUser($_SESSION['user']->id);
-            header('Location: revel.php?id='.$revel->id.'');
+
         }
+        
+       
     }
 ?>
 <!DOCTYPE html>
@@ -55,5 +62,6 @@
             <input type="submit" id="publicar-revel" value="Revelar">
         <form>
     </div>
+    <?=$textoVacio??'' ?>
 </body>
 </html>

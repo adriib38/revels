@@ -74,8 +74,15 @@
             
                     <!-- Boton seguir al usuario encontrado -->
                     <form action="#" method="post">
-                        <input type="hidden" name="idASeguir" value="<?= $user->id ?>"> 
-                        <input type="submit" class="btn-seguir" value="+ Seguir">
+                        <?php 
+                            if($_SESSION['user']->id != $user->id){
+                                echo '<input type="hidden" name="idASeguir" value="'.$user->id.'">'; 
+                                echo '<input type="submit" class="btn-seguir" value="+ Seguir">';
+                            }else{
+                                echo 'Yo';
+                            }
+                        ?>
+                        
                     </form>
                 </div>
             </li> 

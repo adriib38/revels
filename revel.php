@@ -31,8 +31,9 @@
         <?php require_once('inc/cabecera_logged.inc.php'); 
                 $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
                 $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
+                print_r($revel);
         ?>
-        <div class="mrg-50">
+        <div class="muro">
             <div class="revel-muro">
                 <div class="usuario">
                     <img src="<?=$imagenUsuario ?>">
@@ -45,8 +46,8 @@
                         <span class="fecha"><?=$fecha ?></span>
                     </div>
                     <div class="botones">
-                        <i class="fa-brands fa-gratipay" title="Fav"></i>
-                        <i class="fa-solid fa-share" title="Compartir"></i>
+                        <i class="fa-solid fa-share" title="Comentar"></i>
+                        <span><?=$revel->comentarios?></span>
                     </div>
                 </a>
             </div>

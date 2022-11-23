@@ -7,7 +7,7 @@
     session_start();
 
     if(isset($_SESSION['user'])){
-        print_r($_SESSION);
+        //print_r($_SESSION);
         $sesionIniciada = true;
         
     }else {
@@ -29,7 +29,7 @@
         //Se muestra el perfil del usuario llegado por $_GET.
         //Accede al usuario y comprueba si existe.
         if($usuarioMostrar = selectUserById($_GET["id"])) { $existeElUsuario = true; }
-        print_r($usuarioMostrar);
+        //print_r($usuarioMostrar);
         $perfilDelUsuarioLogeado = false;
         if($_GET['id'] == $_SESSION['user']->id){
             $perfilDelUsuarioLogeado = true;
@@ -82,9 +82,11 @@
             }
          
             if($existeElUsuario){
+                $back = strlen($usuarioMostrar->usuario);
         ?>
 
-        <div class="perfil-cabecera">
+
+        <div class="perfil-cabecera gradient-<?=$back?>">
             <img src="https://avatars.dicebear.com/api/avataaars/<?=$usuarioMostrar->usuario ?>.svg" class="img-perfil">
             <h2 class="nombre"><?= $usuarioMostrar->usuario ?></h2>
             <?php 
@@ -118,33 +120,33 @@
                 usort($revels, function ($a, $b) {
                     return strcmp($b->fecha, $a->fecha);
                 });
+                print_r($revels);
                 foreach($revels as $revel){
                     $usuario = selectUserById($revel->userid);
                     $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
                     $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
                 ?>   
-                     <div class="revel-muro">
+                    <div class="revel-muro">
                         <div class="usuario">
                             <img src="<?=$imagenUsuario ?>">
                             <a href="list.php?id=<?=$usuario->id?>"><?=$usuario->usuario ?></a>  
                         </div>
                         <a href="revel.php?id=<?=$revel->id?>">
-                            <div class="contenido">
-                                <?=$revel->texto ?>
-                                <br>
-                                <span class="fecha"><?=$fecha ?></span>
-                            </div>
+                        <div class="contenido">
+                            <?=$revel->texto ?>
+                            <br>
+                            <span class="fecha"><?=$fecha ?></span>
+                        </div>
                         </a>
-                            <div class="botones">
-                                <i class="fa-brands fa-gratipay" title="Fav"></i>
-                                <i class="fa-solid fa-share" title="Compartir"></i>
-                                <?php
-                                    if($perfilDelUsuarioLogeado){
-                                        echo '<a href="delete.php?id='.$revel->id.'"><i class="fa-solid fa-trash" title="Compartir"></i></a>';
-                                    }
-                                ?>
-                            </div>
-                      
+                        <div class="botones">
+                            <i class="fa-brands fa-gratipay" title="Fav"></i>
+                            <i class="fa-solid fa-share" title="Compartir"></i>
+                            <?php
+                                if($perfilDelUsuarioLogeado){
+                                    echo '<a href="delete.php?id='.$revel->id.'"><i class="fa-solid fa-trash" title="Compartir"></i></a>';
+                                }
+                            ?>
+                        </div>
                     </div>
                 <?php } ?>
         </div>

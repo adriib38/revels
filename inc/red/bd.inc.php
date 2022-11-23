@@ -37,7 +37,7 @@
 
         try{
             //Consulta SELECT
-            $resultado = $conexion->query('SELECT * FROM `users` WHERE `id` LIKE '.$id.'');
+            $resultado = $conexion->query('SELECT * FROM `users` WHERE `id` = '.$id.'');
             unset($conexion);
 
             $filas = $resultado->rowCount();
@@ -100,6 +100,8 @@
 
     /**
      * Devuelve un array de Revels de un usuario por id.
+     * 
+     * Va mal, devuelve solo uno
      */
     function selectRevelsFromUser($id){
         global $dsn, $user, $password, $opciones;
@@ -110,11 +112,20 @@
         $revels = array();
         //Consulta SELECT
         $resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
+        //$resultado = $conexion->query('SELECT revels.*, count(comments.id) AS "comments" FROM revels LEFT JOIN comments ON revels.id = comments.revelid WHERE (revels.userid = '.$id.') ORDER BY revels.userid');
+
         unset($conexion);
 
+        $filas = $resultado->rowCount();
+        if($filas == 0){ 
+            return array();
+        };
+
         while($revelObtenido = $resultado->fetch()){
-            $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha']);
-            array_push($revels, $rev);
+            if(isset($revelObtenido['id'])){
+                $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], 0);
+                array_push($revels, $rev);
+            }
         }
     
         return $revels;
@@ -151,7 +162,13 @@
         
         try{
             //Consulta SELECT
-            $resultado = $conexion->query('SELECT * FROM `revels` WHERE id LIKE "'.$id.'"');
+            //$resultado = $conexion->query('SELECT * FROM `revels` WHERE id LIKE "'.$id.'"');
+            $resultado = $conexion->query('SELECT revels.*, count(comments.id) AS "comments"
+            FROM revels 
+            LEFT JOIN comments ON revels.id = comments.revelid 
+            WHERE (revels.id = '.$id.')
+            ORDER BY revels.userid');
+
             unset($conexion);
 
             $filas = $resultado->rowCount();
@@ -160,7 +177,12 @@
             };
 
             $revelObtenido = $resultado->fetch();
-            $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha']);
+
+            if(!isset($revelObtenido['comments'])){
+                $revelObtenido['comments'] = 0;
+            }
+
+            $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], $revelObtenido['comments']);
             return $rev;
         }catch(Exception $e){
             return false;
@@ -214,29 +236,6 @@
     }
 
     /**
-    * Devuelve los revels de un usuario por id
-    */
-    function selectRevelsForUser($id){
-        global $dsn, $user, $password, $opciones;
-        $conexion = new PDO($dsn, $user, $password, $opciones);
-        
-        if(selectUserById($id) == null){
-            return array();
-        }
-
-        $revels = array();
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM `revels` WHERE userid LIKE "'.$id.'"');
-        unset($conexion);
-
-        while($revelsObtenidos = $resultado->fetch()){
-            $revel = new Revel($revelsObtenidos['id'], $revelsObtenidos['userid'], $revelsObtenidos['texto'], $revelsObtenidos['fecha']);
-            array_push($revels, $revel);
-        }
-        return($revels);
-    }
-
-    /**
     * Inserta un usuario
     */
     function insertUser($userCrear){
@@ -287,7 +286,7 @@
             };
 
             $revelObtenido = $resultado->fetch();
-            $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha']);
+            $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], $revelObtenido['comments']);
             return $rev;
         }catch(Exception $e){
             print_r($e);

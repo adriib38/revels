@@ -121,6 +121,25 @@
             </nav>
 
             <!-- 
+                NUEVO REVEL
+            -->
+            <div class="muro">
+                <h2>Nuevo revel</h2>
+                <div class="underline"></div>
+                <div id="nuevo-revel-acceso">
+                    <div class="usuario">
+                        <img src="https://avatars.dicebear.com/api/avataaars/<?=$_SESSION['user']->usuario?>.svg">
+                        <a href="list.php?id=<?=$_SESSION['user']->id?>"><?=$_SESSION['user']->usuario ?></a>  
+                    </div>
+                    <div>
+                    <a href="new.php">
+                        <p>Nuevo revel</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 
                 Muro de revels de seguidos
 
                 AHORA ES DE TUS REVELS
@@ -132,15 +151,16 @@
                 <?php
                     $muro = array();
                     //Añade revels de mis seguidos a mi muro
-                    foreach($seguidos as $usuario){
-                        $revelsDeUsuario = selectRevelsForUser($usuario->id);
-                        foreach($revelsDeUsuario as $revel){
-                            array_push($muro, $revel);
+                    
+                    foreach($seguidos as $segui){
+                        $revelsDeUsuario = selectRevelsFromUser($segui->id);
+                        foreach($revelsDeUsuario as $revelU){
+                            array_push($muro, $revelU);
                         }
                     }
                     
                     //Añade mis revels a los de mis seguidores (mi muro)
-                    $misRevels = selectRevelsForUser($_SESSION['user']->id);
+                    $misRevels = selectRevelsFromUser($_SESSION['user']->id);
                     foreach($misRevels as $miRevel){
                         array_push($muro, $miRevel);
                     }
@@ -169,8 +189,8 @@
                                 <span class="fecha"><?=$fecha ?></span>
                             </div>
                             <div class="botones">
-                                <i class="fa-brands fa-gratipay" title="Fav"></i>
-                                <i class="fa-solid fa-share" title="Compartir"></i>
+                                <i class="fa-solid fa-share" title="Comentar"></i>
+                                <span></span>
                             </div>
                         </a>
                     </div>

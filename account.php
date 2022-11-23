@@ -137,7 +137,8 @@
                 <input type="submit" value="Actualizar">
                 <?=$estado??'' ?> 
             </form>
-            <p><a href="cancel.php">Eliminar cuenta</a></p>
+            <p><a href="list.php">Mis revels</a></p>
+            <p class="red"><a href="cancel.php">Eliminar cuenta</a></p>
         </div>
 
         <?php include('inc/footer.inc.php'); ?>
