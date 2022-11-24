@@ -10,7 +10,7 @@ Una red social construida en PHP, con registro e inicio de sesión de usuarios e
 
 <img src="https://avatars.dicebear.com/api/adventurer/adrianbenitez.svg?b=%232e3436" width="50px"> Adrián Benítez
 
-[![portfolio](https://img.shields.io/badge/mi_portfolio-34D399?style=for-the-badge&logo=ko-fi&logoColor=white)](https://adrianbenitez.vercel.app/)[![github](https://img.shields.io/badge/github-000?style=for-the-badge&logo=github&logoColor=white)](https://www.linkedin.com/in/adrián-bntz)[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adrián-bntz) 
+[![portfolio](https://img.shields.io/badge/mi_portfolio-34D399?style=for-the-badge&logo=ko-fi&logoColor=white)](https://adrianbenitez.vercel.app/)[![github](https://img.shields.io/badge/github-000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/adriib38)[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adrián-bntz) 
 
 
 ## Agradecimientos
