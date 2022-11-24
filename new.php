@@ -20,10 +20,10 @@
         if($_POST['texto'] != ''){
             $newRevel = new Revel(0, $_SESSION['user']->id, $_POST["texto"], 0, 0);
             //Se publica el revel
-            if(insertRevel($newRevel)){
+            $ultimoIndexAnyadido = insertRevel($newRevel);
+            if($ultimoIndexAnyadido){
                 //Se redirige a la página del revel
-                $revel = selectLastRevelByUser($_SESSION['user']->id);
-                header('Location: revel.php?id='.$revel->id.''); 
+                header('Location: revel.php?id='.$ultimoIndexAnyadido.''); 
             }
         }else{
             $textoVacio = '<span class="red">No puedes publicar un revel vacío</span>';
@@ -40,13 +40,13 @@
     <title>New</title>
 
     <link rel="icon" type="image/x-icon" href="images/_logo.png">
-    <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles\style.css">
 </head>
 <body>
     <?php
         require_once('inc/cabecera_logged.inc.php'); 
-        $img = 'https://avatars.dicebear.com/api/avataaars/'.$_SESSION['user']->usuario.'.svg';
+        $img = 'https://avatars.dicebear.com/api/avataaars/'.$_SESSION['user']->usuario.'.svg?b=%232e3436';
     ?>   
     <h2>Nuevo Revel</h2>
     <div class="publicar-revel">

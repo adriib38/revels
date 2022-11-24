@@ -406,9 +406,12 @@
 
             $consulta->execute();
 
+            //Almacena el id del revel nuevo
+            $idRevelAnyadido = $conexion->lastInsertId();
+
             unset($conexion);
 
-            return true;
+            return $idRevelAnyadido;
         }catch(PDOException $e){
             return false;
         }   

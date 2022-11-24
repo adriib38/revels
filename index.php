@@ -45,7 +45,7 @@
         <meta property="og:description" content="Rǝvels es un sitio web de microblogging que permite a los usuarios publicar breves mensajes de texto, llamados 'revels', de hasta 290 caracteres." />
 
         <link rel="icon" type="image/x-icon" href="images/_logo.png">
-        <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,12 +127,12 @@
                 <div class="underline"></div>
                 <div id="nuevo-revel-acceso">
                     <div class="usuario">
-                        <img src="https://avatars.dicebear.com/api/avataaars/<?=$_SESSION['user']->usuario?>.svg">
+                        <img src="https://avatars.dicebear.com/api/avataaars/<?=$_SESSION['user']->usuario?>.svg?b=%232e3436">
                         <a href="list.php?id=<?=$_SESSION['user']->id?>"><?=$_SESSION['user']->usuario ?></a>  
                     </div>
                     <div>
                     <a href="new.php">
-                        <p>Nuevo revel</p>
+                        <p><i class="fa-solid fa-feather"></i>Nuevo revel</p>
                         </a>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                     //Imprime revels de muro
                     foreach($muro as $revel){    
                         $usuario = selectUserById($revel->userid);
-                        $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg';
+                        $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg?b=%232e3436';
                         $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
 
 

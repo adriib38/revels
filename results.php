@@ -51,7 +51,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados - Revels</title>
 
-    <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles\style.css">
 
 </head>
@@ -67,7 +67,7 @@
            
         foreach($resultado as $user){ ?>
             <li class="carta-usuario">
-                <img src="https://avatars.dicebear.com/api/avataaars/<?=$user->usuario?>.svg" alt="Avatar" style="width:15%">
+                <img src="https://avatars.dicebear.com/api/avataaars/<?=$user->usuario?>.svg?b=%232e3436" alt="Avatar" style="width:15%">
                 <div>
                     <h4><b><?=$user->usuario ?> </b></h4>
                     <p><?=$user->email?></p>

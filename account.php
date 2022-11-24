@@ -34,8 +34,10 @@
     $nuevaContrasenya = $_SESSION['user']->contrasenya;
     $nuevoMail = $_SESSION['user']->email;
     $errorDatosExisten = false;
-    
+    $contrasenyasCoinciden = false;
+
     if(!empty($_POST)){
+        print_r($_POST);
         //Si el usuario ha escrito en un campo pero no cumple sintacticamente, no se actualizará.
         $hayErrores = false;
 
@@ -45,51 +47,51 @@
                 $errorNombre = '<br><span class="red"> -Nombre no valido</span>';
                 $hayErrores = true;
             }else{
-                $nuevoNombre = $_POST["nombre"];
+                //Compruebas si existe un uusario con el mismo nombre
+                if(selectUserByUserName($_POST["nombre"])){
+                    $errorNombre = '<br><span class="red"> Ya existe un usuario con ese nombre.</span>';
+                    $errorDatosExisten = true;
+                }
             }
         }
      
-        if(!preg_match($contrasenya, $_POST["contrasenya"] )){
-            $errorContrasenya = '<br><span class="red"> -Contraseña no valida, mínimo 8 caracteres, numeros y letras</span>';
-            $hayErrores = true;
-        }else{
-            $nuevaContrasenya = $_POST["contrasenya"];
-        }
-
         if(!empty($_POST["mail"])){
             if(!preg_match($mail, $_POST["mail"] )){
                 $errorMail = '<br><span class="red"> -Mail no valido</span>';
                 $hayErrores = true;
             }else{
-                $nuevoMail = $_POST["mail"];
+                //Comprueba si existe un usuario con el mismo email
+                if(selectUserByEmail($_POST["mail"])){
+                    $errorMail = '<br><span class="red"> Ya existe un usuario con ese mail.</span>';
+                    $errorDatosExisten = true; 
+                }
             }
         }
 
+        if(!preg_match($contrasenya, $_POST["contrasenya"] )){
+            $errorContrasenya = '<br><span class="red"> -Contraseña no valida, mínimo 8 caracteres, numeros y letras</span>';
+            $hayErrores = true;
+        }else{
+            if($_POST["contrasenya"] == $_POST['contrasenya-rep']){
+                $nuevaContrasenya = $_POST["contrasenya"];
+                $contrasenyasCoinciden = true;
+            }else{
+               $errorContrasenya =  '<br><span class="red"> -Las contrasenyas no coinciden</span>';
+            }
+        }
+       
         if(!$hayErrores){
-            
-            //Compruebas si existe un uusario con el mismo nombre
-            if(selectUserByUserName($nuevoNombre)){
-                $errorNombre = '<br><span class="red"> Ya existe un usuario con ese nombre.</span>';
-                $errorDatosExisten = true;
-            }
-
-            //Comprueba si existe un usuario con el mismo email
-            if(selectUserByEmail($nuevoMail)){
-                $errorMail = '<br><span class="red"> Ya existe un usuario con ese mail.</span>';
-                $errorDatosExisten = true;
-            }
-      
-            //Si es unico se crea
-            if(!$errorDatosExisten){
-                insertUser($newUser);
-                header('Location: login.php');
-            }
-            
-            $passEncriptada = password_hash($nuevaContrasenya, PASSWORD_DEFAULT);
-            $newUser = new User($viejoId, $nuevoNombre, $passEncriptada, $nuevoMail);
-            $seHaActualizado = updateUser($newUser);
-            if($seHaActualizado){
-                $estado = '<br><span class="green"> ¡Perfil actualizado!</span>';
+            //Si las contrasenyas coninicen y los datos no existen
+            if($contrasenyasCoinciden AND !$errorDatosExisten){
+                $passEncriptada = password_hash($nuevaContrasenya, PASSWORD_DEFAULT);
+                $newUser = new User($viejoId, $nuevoNombre, $passEncriptada, $nuevoMail);
+                $seHaActualizado = updateUser($newUser);
+                if($seHaActualizado){
+                    $estado = '<br><span class="green"> ¡Perfil actualizado!</span>';
+                }
+                session_destroy();
+                
+                header('Location: close.php');
             }
         }
 
@@ -108,7 +110,7 @@
         
         <meta http-equiv="expires" content="Sat, 07 feb 2016 00:00:00 GMT">
 
-        <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="styles\style.css">
     </head>
     <body class="bg-gris">
@@ -129,15 +131,22 @@
                 <input type="text" name="mail" placeholder="Mail" value="<?=$_POST['mail']??'' ?>">
                 <?=$errorMail??'' ?>
                 <br>
-                <label class="required">Confirmar o cambiar contraseña:</label>
+                <label>Confirmar o cambiar contraseña</label>
+                <br>
+                <label class="required">Contraseña:</label>
                 <br>
                 <input class="required" type="password" required name="contrasenya" placeholder="">
                 <?=$errorContrasenya??'' ?>
+                <br>
+                <label class="required">Confirmar contraseña:</label>
+                <br>
+                <input class="required" type="password" required name="contrasenya-rep" placeholder="">
                 <br>
                 <input type="submit" value="Actualizar">
                 <?=$estado??'' ?> 
             </form>
             <p><a href="list.php">Mis revels</a></p>
+            <br>
             <p class="red"><a href="cancel.php">Eliminar cuenta</a></p>
         </div>
 

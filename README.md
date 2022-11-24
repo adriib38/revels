@@ -45,7 +45,7 @@ Todas las imagenes y logos cuentan con atributos <code>HTML</code> de titulo par
 
 ## Autores
 
-<img src="https://avatars.dicebear.com/api/adventurer/adrianbenitez.svg" width="50px"> Adrián Benítez
+<img src="https://avatars.dicebear.com/api/adventurer/adrianbenitez.svg?b=%232e3436" width="50px"> Adrián Benítez
 
 [![portfolio](https://img.shields.io/badge/mi_portfolio-34D399?style=for-the-badge&logo=ko-fi&logoColor=white)](https://adrianbenitez.vercel.app/)[![github](https://img.shields.io/badge/github-000?style=for-the-badge&logo=github&logoColor=white)](https://www.linkedin.com/in/adrián-bntz)[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adrián-bntz) 
 
