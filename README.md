@@ -1,4 +1,4 @@
-# Revels ⚛️ ![estado](https://img.shields.io/badge/ESTADO-en%20desarrollo-F18F01?style=for-the-badge)
+# ⚛️ Revels ![version](https://img.shields.io/badge/version-0.1-blue.svg)
 
 ![](https://snipboard.io/SLDhQC.jpg)
 
