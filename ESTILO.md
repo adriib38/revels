@@ -1,8 +1,6 @@
-# ⚛️Revels  
+# ⚛️ Revels ![version](https://img.shields.io/badge/version-0.1-blue.svg)
 
 ![guia](https://img.shields.io/badge/guia_de_estilo-792FE7?style=for-the-badge)
-
-![version](https://img.shields.io/badge/version-0.1-blue.svg)
 
 ![](https://snipboard.io/SLDhQC.jpg)
 
