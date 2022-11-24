@@ -60,11 +60,3 @@ Un aside lateral izquierdo con los usuarios siguiendo, con acceso directo a su l
 
 ![](https://snipboard.io/RJXo21.jpg)
 
-## Agradecimientos
-
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates) - Documentación
- - [Awesome README](https://github.com/matiassingers/awesome-readme) - Documentación
- - [Canva](https://www.canva.com/) - Imageners
- - [Pixabay](https://pixabay.com/) - Imagenes
- - [Pablo Stanley](https://avataaars.com/) - Iconos
- - Alex Torres
