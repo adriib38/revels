@@ -1,54 +1,64 @@
-# Revels ⚛️
+# ⚛️Revels  
+
+![guia](https://img.shields.io/badge/guia_de_estilo-792FE7?style=for-the-badge)
+
+![version](https://img.shields.io/badge/version-0.1-blue.svg)
 
 ![](https://snipboard.io/SLDhQC.jpg)
 
-Una red social construida en PHP, con registro e inicio de sesión de usuarios en base de datos.
+Revels es una red social, divertida, moderna, alegre y elegante, y pretende representar.
 
-![estado](https://img.shields.io/badge/ESTADO-en%20desarrollo-F18F01?style=for-the-badge)
-
-![linkedin](https://img.shields.io/badge/Documentación_de_estilo-792FE7?style=for-the-badge)
-
+Como objetivo de hacer sentir a los usuarios de Revels cómodos y hacer de la plataforma un lugar divertido, útil, libre, de comunicación. Un sitio donde pueden conectar con sus seres queridos.
 
 ## Referencias de colores
 
-| Color           |Descripción | Objetivo  | Hex                                                                |
-| ---------------| - | - |------------------------------------------------------------------ |
-| Morado oscuro | Usado como color de fondo. | Establilidad, elegancia. | ![#0f0e17](https://via.placeholder.com/10/0f0e17?text=+) #0f0e17 |
-| Morado | Color de elementos destacados. | Misterio | ![#4F25CE](https://via.placeholder.com/10/4F25CE?text=+) #4F25CE |
-| Amarillo | Color de otros destacados. | Alegría | ![#4F25CE](https://via.placeholder.com/10/ff8906?text=+) #ff8906 |
-| Naranja | Color de fondo de botones como seguir, | Calidez, enérgico | ![#f25f4c](https://via.placeholder.com/10/f25f4c?text=+) #f25f4c |
-| Rojo | Para acciónes importants (eliminar cuenta, eliminar publicación...) | Precaución | ![#e53170](https://via.placeholder.com/10/e53170?text=+) #e53170 |
+| Color           |Descripción  | Hex                                                                |
+| ---------------| - | ------------------------------------------------------------------ |
+| Background | Usado como color de fondo. | ![#0D0C14](https://via.placeholder.com/10/0D0C14?text=+) #0D0C14 |
+| Barras de navegación, algunos fundos... | Color de elementos destacados. | ![#FFFFFE](https://via.placeholder.com/10/FFFFFE?text=+) #FFFFFE |
+| Alertas | Color de otros destacados. | ![#E53170](https://via.placeholder.com/10/E53170?text=+) #E53170 |
+| Secundario | Color de fondo de botones como seguir,  | ![#009FFD](https://via.placeholder.com/10/009FFD?text=+) #009FFD |
+| Secundario | Para acciónes importants (eliminar cuenta, eliminar publicación...)| ![#FFA400](https://via.placeholder.com/10/FFA400?text=+) #FFA400 |
 
 ## Fuentes
-Powered by [Google Fonts](https://fonts.google.com/)
 
-- Poppins, sans-serif
-Los tipos de letra sans serif geométricos han sido una herramienta de diseño popular desde que subieron al escenario mundial. Poppins es uno de los recién llegados a esta larga tradición. Con soporte para los sistemas de escritura latino y devanagari, es una versión internacionalista del género.
+- Manrope: todo.
 
-## Animaciones
-
-Algunos de los elementos de la aplicación web cuentan con animaciones y transiciones css, con el objetivo de hacer la experiencia de usuario más fluida y dinamica.
+Manrope es una familia de fuentes sans-serif moderna de código abierto, diseñada por Mikhail Sharanda en 2018. En 2019, Mirko Velimirovic trabajó con Mikhail Sharanda para convertir Manrope en una fuente variable.
+Los valores que representa Manrope son semejantes a los de Revels. Siendo esta una fuente sencilla, alegre, moderna; basada en la geometría, apreciada en sus caracteres circulares.
 
 
-## Accesibilidad
+- Poppins: revels.
 
-Todas las imagenes y logos cuentan con atributos <code>HTML</code> de titulo para que personas con capacidad reducida puedan usar la aplicación sin problemas.
+Los tipos de letra sans serif geométricos han sido una herramienta de diseño popular desde que estos actores subieron al escenario mundial. Poppins es uno de los recién llegados a esta larga tradición. Con soporte para los sistemas de escritura latino y devanagari, es una versión internacionalista del género. Al igual que con la fuente mencionada anteriormente, Revels se ve fuertemente identificada con Poppins. 
+Esta es utilizada para el contenido dentro de cada publicación de usuario, llamada revel. Pues poppins hace del texto más expresivo consiguiendo mejor impresión para las publicaciones.
 
-## Screenshots
+- Monserrat: logo.
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+Los viejos carteles y letreros del tradicional barrio de Montserrat de Buenos Aires inspiraron a Julieta Ulanovsky para diseñar esta tipografía y rescatar la belleza de la tipografía urbana surgida en la primera mitad del siglo XX.
+Para los logos corporativos se ha decidido utilizar la popular Montserrat. Una fuente con carácter y seria, que transmite seguridad.
+
+## Logo
+#### Símbolo estándar
+![](https://snipboard.io/Qf2HFJ.jpg)
 
 
-## Logos
-![Logo](https://snipboard.io/JSD0jr.jpg)
-![icono](https://snipboard.io/WxGoVQ.jpg)
+#### Logotipo
+![](https://snipboard.io/nhUf0B.jpg)
 
-## Autores
+## Layout
 
-<img src="https://avatars.dicebear.com/api/adventurer/adrianbenitez.svg?b=%232e3436" width="50px"> Adrián Benítez
+En cuanto al diseño de las páginas. Una formación de elementos práctica para el usuario a la vez que estética.
 
-[![portfolio](https://img.shields.io/badge/mi_portfolio-34D399?style=for-the-badge&logo=ko-fi&logoColor=white)](https://adrianbenitez.vercel.app/)[![github](https://img.shields.io/badge/github-000?style=for-the-badge&logo=github&logoColor=white)](https://www.linkedin.com/in/adrián-bntz)[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/adrián-bntz) 
+Al iniciar sesión, un muro con los revels de los usuarios seguidos.
+Un aside lateral izquierdo con los usuarios siguiendo, con acceso directo a su list.
 
+![](https://snipboard.io/g0Hf5X.jpg)
+![](https://lh6.googleusercontent.com/FGXuWefR52z-1PHPa__6dQd5zmlulWnILTsBVuAD2yJc1JmwSUenRlymXk3znrIPTvfo6xDDN9uusFBwx5kKk7MoVRaSZShgSSDOYXWFQVIJVIhmNwGYayvSh5W9Qz7TvoJ_dzyjBTf9bqXiDUgugRCiPE4RxHQmEKFGIzD6iN5Z7z_w7kl3_TiY6GnDpA)
+
+## Estructura de navegación
+
+![](https://snipboard.io/RJXo21.jpg)
 
 ## Agradecimientos
 
