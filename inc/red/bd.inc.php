@@ -4,13 +4,16 @@
     require_once('inc/User.inc.php');
     require_once('inc/Comment.inc.php');
 
+    /**
+     * Parametros base de datos
+     */
     $user = 'revel';
     $password = 'lever';
     $bdName = 'revels';
     $host = 'localhost';
     $port = '3306';
 
-    //Información de la base de datos
+    //Información para la conexión a la base de datos
     $dsn = 'mysql:host='.$host.';port='.$port.';dbname='.$bdName.'';          
     $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 
@@ -95,8 +98,6 @@
 
     /**
      * Devuelve un array de Revels de un usuario por id.
-     * 
-     * Va mal, devuelve solo uno
      */
     function selectRevelsFromUser($id){
         global $dsn, $user, $password, $opciones;
@@ -109,7 +110,6 @@
             $revels = array();
             //Consulta SELECT
             $resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
-            //$resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, users.id, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$id.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC; ');
 
             unset($conexion);
 
@@ -132,6 +132,9 @@
 
     }
 
+    /**
+     * Devuelve una lista de revels de ususarios a los que un usuario sigue, revels del propio usuario incluidos. Ordenados cronologicamente.
+     */
     function selectRevelsMuro($id){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
@@ -194,6 +197,33 @@
     }
 
     /**
+    * Devuelve un array de ids de usuarios que sigue el Usuario del $id.
+    */
+    function selectIdFollowsFromUser($id){
+        global $dsn, $user, $password, $opciones;
+        $conexion = new PDO($dsn, $user, $password, $opciones);
+
+        try{
+        
+            if(selectUserById($id) == null) return array();
+
+            $followers = array();
+            //Consulta SELECT
+            $resultado = $conexion->query('SELECT * FROM `follows` WHERE userid LIKE "'.$id.'"');
+            unset($conexion);
+
+            while($res = $resultado->fetch()){
+                $followed = selectUserById($res['userfollowed']);
+                array_push($followers, $followed->id,);
+            }
+
+        }catch(Exception $e){
+            return $followers;    
+        }
+        return $followers;
+    }
+
+    /**
     * Devuelve un objeto Revel por id.
     */
     function selectRevel($id){
@@ -219,7 +249,6 @@
         }catch(Exception $e){
             return false;
         }
-        
     }
 
     /**
@@ -249,7 +278,7 @@
     }
 
     /**
-    * Devuelve los comments de un revel desde el id de un revel
+    * Devuelve los comments de un revel desde el $id de un revel
     */
     function selectCommentsFromRevel($id){
         global $dsn, $user, $password, $opciones;
@@ -405,7 +434,6 @@
                 return false;
             }
         }
-
     }
 
     /**
@@ -485,7 +513,7 @@
             }
       
         }catch(PDOException $e){
-           print_r($e);
+            return false;
         }   
     }
 
@@ -542,6 +570,9 @@
         }
     }
 
+    /**
+     * Elimina todos los seguidos y seguidores de un usuario por $id
+     */
     function deleteAllFollowsAndFolloweds($id){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
@@ -557,7 +588,7 @@
     }
 
     /**
-    * Crea una relacion follow.
+    * Devuelve una lista de usuarios que el nombre de usuario coincida con una cadena de texto $user_.
     */
     function searchUsers($user_){
         global $dsn, $user, $password, $opciones;
@@ -637,6 +668,9 @@
         }   
     }
 
+    /**
+     * Elimina un usuario por $id
+     */
     function deleteUser($id){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
@@ -655,7 +689,6 @@
             
             return true;
         }catch(PDOException $e){
-            print_r($e);
             return false;
         }   
     }

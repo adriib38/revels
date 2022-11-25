@@ -1,32 +1,26 @@
 
 <?php
 
-    require_once('inc/red/bd.inc.php');
+    /**
+     * si no recibe datos mostrará un formulario cumplimentado con los datos del 
+     * usuario para poder modificarlos. Si recibe datos de dicho formulario los almacenará.
+     */
 
+    require_once('inc/red/bd.inc.php');
     require_once('inc/regex.inc.php');
 
     session_start();
 
+    /**
+     * Si existe el objeto user (Sesión iniciada) 
+     * Si no existe redirige a index.php
+     */
     if(isset($_SESSION['user'])){
-        print_r($_SESSION);
-        $sesionIniciada = true;
-        
+        $sesionIniciada = true; 
     }else {
-        echo 'NO INICIADA';
+        header('Location: index.php');
         $sesionIniciada = false;
     }
-
-/**
- * si no recibe datos mostrará un formulario cumplimentado con los datos del 
- * usuario para poder modificarlos. Si recibe datos de dicho formulario los almacenará.
- * 
- */
-
- /**
-  * Solo se actualizarán los atributios que el usuario escriba,
-  * menos la contraseña, que siempre debe cambiar.
-  *
-  */
     
     //Campos de los nuevos valores, son los mismos que ahora, por si no se cambian.
     $viejoId = $_SESSION['user']->id;
@@ -37,17 +31,17 @@
     $contrasenyasCoinciden = false;
 
     if(!empty($_POST)){
-        print_r($_POST);
         //Si el usuario ha escrito en un campo pero no cumple sintacticamente, no se actualizará.
         $hayErrores = false;
 
         //Si el campo del nombre no está vacío, se actualizará el nombre.
         if(!empty($_POST["nombre"])){
+                      //Comprueba que sea valido
             if(!preg_match($nombre, $_POST["nombre"] )){
                 $errorNombre = '<br><span class="red"> -Nombre no valido</span>';
                 $hayErrores = true;
             }else{
-                //Compruebas si existe un uusario con el mismo nombre
+                //Compruebas si existe un usario con el mismo nombre
                 if(selectUserByUserName($_POST["nombre"])){
                     $errorNombre = '<br><span class="red"> Ya existe un usuario con ese nombre.</span>';
                     $errorDatosExisten = true;
@@ -55,7 +49,9 @@
             }
         }
      
+        //Si el campo del email no está vacío, se actualizará el nombre.
         if(!empty($_POST["mail"])){
+            //Comprueba que sea valido
             if(!preg_match($mail, $_POST["mail"] )){
                 $errorMail = '<br><span class="red"> -Mail no valido</span>';
                 $hayErrores = true;
@@ -68,10 +64,12 @@
             }
         }
 
+        //Comprueba si la contrasenya es valida
         if(!preg_match($contrasenya, $_POST["contrasenya"] )){
-            $errorContrasenya = '<br><span class="red"> -Contraseña no valida, mínimo 8 caracteres, numeros y letras</span>';
+            $errorContrasenya = '<br><span class="red"> -Contraseña no valida, mínimo 6 caracteres, numeros y letras</span>';
             $hayErrores = true;
         }else{
+            //Comprueba que la contrasenya sea igual que la confirmación
             if($_POST["contrasenya"] == $_POST['contrasenya-rep']){
                 $nuevaContrasenya = $_POST["contrasenya"];
                 $contrasenyasCoinciden = true;
@@ -80,8 +78,9 @@
             }
         }
        
+        //Si no hay errores en los datos insertados se actualizará el usuario y se cerrará sesión.
         if(!$hayErrores){
-            //Si las contrasenyas coninicen y los datos no existen
+            //Si las contrasenyas coinicen y los datos no existen
             if($contrasenyasCoinciden AND !$errorDatosExisten){
                 $passEncriptada = password_hash($nuevaContrasenya, PASSWORD_DEFAULT);
                 $newUser = new User($viejoId, $nuevoNombre, $passEncriptada, $nuevoMail);
@@ -94,7 +93,6 @@
                 header('Location: close.php');
             }
         }
-
     }
 
 ?>
@@ -120,7 +118,9 @@
 
             <!-- FORMULARIO Actualizar -->  
             <form action="#" method="post" class="form-auth form-actualizar bg-blanco">
-                <h2 id="actualizar-perfil">Actualizar perfil</h2>
+                <h2 id="actualizar-perfil">Actualizar cuenta</h2>
+                <label>Si no vas a cambiar un campo dejalo vacío.</label>
+                <br>
                 <label>Nuevo nombre:</label>
                 <br>
                 <input type="text" name="nombre" placeholder="Nombre" value="<?=$_POST['nombre']??'' ?>">

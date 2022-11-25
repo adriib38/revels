@@ -19,6 +19,7 @@
     if($_SESSION['user']->id != selectRevel($_GET['id'])->userid){
         header('Location: list.php?id='.$id.'');
     }else{
+        //Elimina el revel que llega por $_GET. Redirige al list del usuario
         if(isset($_GET)){
             deleteRevel($_GET['id']);
     

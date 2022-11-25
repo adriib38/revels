@@ -179,6 +179,7 @@ a:visited {
 .form-auth {
   width: 90%;
   margin-bottom: 20px;
+  margin-left: 25%;
   color: var(--negro);
   max-width: 500px;
   min-width: 200px;
@@ -376,15 +377,24 @@ i:hover{
   font-size: 1.1rem;
 }
 
-.btn-seguir{
-  background-color: var(--naranja);
-  color: var(--blanco);
+.btn-seguir,
+.btn-unfollow {
   border-radius: 4px;
   padding: 4px;
   border: none;
   outline:none;
   margin-top: 2px;
   margin-bottom: 2px;
+}
+
+.btn-seguir{
+  background-color: var(--azul);
+  color: var(--blanco);
+}
+
+.btn-unfollow{
+  background-color: var(--naranja);
+  color: var(--blanco);
 }
 
 .publicar-revel {

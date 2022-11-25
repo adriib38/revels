@@ -6,12 +6,25 @@
 
     session_start();
 
+    /**
+     * Si existe el objeto user (Sesión iniciada)
+     */
+    if(isset($_SESSION['user'])){
+        $sesionIniciada = true; 
+    }else {
+        header('Location: index.php');
+        $sesionIniciada = false;
+    }
+
+    /**
+     * Si llega un insert de comentario
+     */
     if(isset($_POST)){
-        //Crea e inserta un comentario
+        //Valid el texto, crea e inserta un comentario
         if(preg_match($revelRegex, $_POST["textocomentario"])){
             $comment = new Comment(0, $_POST['idrevel'], $_SESSION['user']->id, $_POST['textocomentario'], 0);
             insertComments($comment);
-    
+            //Redirige al revel
             header('Location: revel.php?id='.$_POST['idrevel'].'');
         } else{
             require_once('inc/cabecera_logged.inc.php');
@@ -39,5 +52,4 @@
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Montserrat:wght@300&family=Poppins:wght@500;600&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="styles\style.css">
     </head>
-
 

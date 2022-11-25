@@ -9,15 +9,15 @@
      * Si existe el objeto user (Sesión iniciada)
      */
     if(isset($_SESSION['user'])){
-        print_r($_SESSION);
         $sesionIniciada = true; 
     }else {
-        echo 'NO INICIADA';
         header('Location: index.php');
         $sesionIniciada = false;
     }
 
+    //Si llega un revel por $_POST
     if(!empty($_POST)){
+        //Se valida, se crea y se publica
         if(preg_match($revelRegex, $_POST["texto"])){
             $newRevel = new Revel(0, $_SESSION['user']->id, $_POST["texto"], 0, 0);
             //Se publica el revel
@@ -29,7 +29,6 @@
         }else{
             $textoVacio = '<span class="red">Escribe de 1 a 290 caracteres</span>';
         }
-       
     }
 ?>
 <!DOCTYPE html>
@@ -39,7 +38,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New</title>
-
     <link rel="icon" type="image/x-icon" href="images/_logo.png">
     <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles\style.css">

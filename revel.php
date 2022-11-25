@@ -4,6 +4,16 @@
 
     session_start();
 
+    /**
+     * Si existe el objeto user (Sesión iniciada)
+     */
+    if(isset($_SESSION['user'])){
+        $sesionIniciada = true; 
+    }else {
+        header('Location: index.php');
+        $sesionIniciada = false;
+    }
+
     if(isset($_GET['id'])){
         $revel = selectRevel($_GET['id']);
         $usuario = selectUserById($revel->userid);
@@ -30,7 +40,6 @@
         <?php require_once('inc/cabecera_logged.inc.php'); 
             $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg?b=%232e3436';
             $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i");
-            print_r($revel);
         ?>
         <div class="muro">
             <div class="revel-muro">
@@ -58,6 +67,7 @@
 
                 <input type="submit" value="Enviar">
             </form>
+            <br>
             <?php
                 
                 foreach($comments as $comment){

@@ -6,19 +6,19 @@
 
     session_start();
 
+    /**
+     * Si existe el objeto user (Sesión iniciada)
+     */
     if(isset($_SESSION['user'])){
-        //print_r($_SESSION);
-        $sesionIniciada = true;
-        
+        $sesionIniciada = true; 
     }else {
-        echo 'NO INICIADA';
+        header('Location: index.php');
         $sesionIniciada = false;
     }
 
     /**
      * mostrará una lista de todas las revelaciones escritas por el usuario junto con un
      * botón para poder eliminar cada una de ellas.
-     * 
      * 
      */
 
@@ -71,7 +71,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Montserrat:wght@300&family=Poppins:wght@500;600&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="styles\style.css">
     </head>
-    <body>
+    <body class="bg-gris">
         <?php require_once('inc/cabecera_logged.inc.php'); ?>
        
         <?php 

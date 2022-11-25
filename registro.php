@@ -1,8 +1,17 @@
 <?php
 
+    session_start();
+
     require_once('inc/red/bd.inc.php');
     require_once('inc/regex.inc.php');
 
+        /**
+     * Si la sesión está iniciada: se rediridige a index.php
+     */
+    if(isset($_SESSION['user'])){
+        header('Location: index.php');
+    }
+    
     $hayErrores = false;
 
     $formularioEnviado = false;
@@ -13,7 +22,7 @@
 
     //Aseguramos que lleguen respuestas antes de validarlas
     if(!empty($_POST)){
-
+        
         if(!preg_match($nombre, $_POST["nombre"] )){
             $errorNombre = '<br><span class="red"> -Nombre no valido</span>';
             $hayErrores = true;
@@ -42,6 +51,12 @@
             $hayErrores = true;
         }
 
+        /**
+         * Si los campos son validos:
+         * Se encripta la contraseña.
+         * Se crea el objeto usuario.
+         * Se comprueba que no existen otros usuarios con el email y la contraseña.
+         */
         if(!$hayErrores){
             $passEncriptada = password_hash($_POST["contrasenya"], PASSWORD_DEFAULT);
             $newUser = new User(0, $_POST["nombre"], $passEncriptada, $_POST["mail"]);
@@ -58,13 +73,14 @@
                 $errorDatosExisten = true;
             }
       
-            //Si es unico se crea
+            /**
+             * Si son unicos los datos se crea el usuario y redirige a login
+             */
             if(!$errorDatosExisten){
                 insertUser($newUser);
                 header('Location: login.php');
             }
         }
-
     }
 ?>
 <!DOCTYPE html>
@@ -74,9 +90,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registro - Revels</title>
-
         <link rel="stylesheet" href="styles/style.css">
-        
     </head>
     <body>
         

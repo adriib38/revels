@@ -1,5 +1,7 @@
 <?php
-
+    /**
+     * Objeto Coment. Para comentarios de un revel.
+     */
     class Comment {
         public $id;
         public $revelid;

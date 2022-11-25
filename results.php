@@ -3,16 +3,16 @@
 
     session_start();
 
-    /**
+     /**
      * Si existe el objeto user (Sesión iniciada)
      */
     if(isset($_SESSION['user'])){
-        print_r($_SESSION);
         $sesionIniciada = true; 
     }else {
-        echo 'NO INICIADA';
+        header('Location: index.php');
         $sesionIniciada = false;
     }
+    
     /**
     * recibe los datos del formulario de búsqueda de usuarios y mostrará una
     * lista de usuarios que coincidan con la búsqueda con un botón para seguir.
@@ -30,11 +30,23 @@
     }
 
     //Seguir a usuario
-    if(!empty($_POST)){
+    if(!empty($_POST['follow'])){
         $idASeguir = $_POST["idASeguir"];
         
         if(insertFollow($_SESSION['user']->id, $idASeguir)){
             $estado = "Siguiendo";
+        } else {
+            $estado = "Error";
+        }
+        echo $estado;        
+    }
+
+     //Dejar de seguir a usuario
+     if(!empty($_POST['unfollow'])){
+        $idAUnfollow = $_POST["idASeguir"];
+        
+        if(deleteFollow($_SESSION['user']->id, $idAUnfollow)){
+            $estado = "Unfollow";
         } else {
             $estado = "Error";
         }
@@ -63,6 +75,8 @@
     <ul class="lista-resultados">
         <?php if($resultadosEncontrados){ 
            
+        $seguidos = selectIdFollowsFromUser($_SESSION['user']->id);
+
         foreach($resultado as $user){ ?>
             <li class="carta-usuario">
                 <img src="https://avatars.dicebear.com/api/avataaars/<?=$user->usuario?>.svg?b=%232e3436" alt="Avatar" style="width:15%">
@@ -75,12 +89,11 @@
                         <?php 
                             if($_SESSION['user']->id != $user->id){
                                 echo '<input type="hidden" name="idASeguir" value="'.$user->id.'">'; 
-                                if(!leSigue($user->id, $_SESSION['user']->id)){
-                                    echo '<input type="submit" class="btn-seguir" value="+ Seguir">';
+                                if(!in_array($user->id, $seguidos)){
+                                    echo '<input type="submit" class="btn-seguir" name="follow" value="+ Seguir">';
                                 }else{
-                                    echo '<input type="submit" class="btn-seguir" value="Unfollow">';
-                                }
-                                
+                                    echo '<input type="submit" class="btn-unfollow" name="unfollow" value="Unfollow">';
+                                }     
                             }else{
                                 echo 'Yo';
                             }

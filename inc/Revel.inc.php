@@ -1,5 +1,7 @@
 <?php
-
+    /**
+     * Objeto para Revels (publicaciónes de usuarios).
+     */
     class Revel {
         public $id;
         public $userid;

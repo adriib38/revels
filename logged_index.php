@@ -16,7 +16,6 @@
 <body>
     <?= include('inc/cabecera_logged.inc.php')??'' ?>
 
-
     <!-- 
         Barra lateral con usuarios a los que sigue el logueado
     -->
@@ -46,7 +45,6 @@
                 afoPKJfoAKPEokcae opkcpo kpo kfcokc opak
             </div>
         </div>
-
     </div>
 
 </body>

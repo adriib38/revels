@@ -1,21 +1,29 @@
 <?php
 
-/**
-* si no recibe datos mostrará un formulario con un aviso de confirmación de
-* eliminación de la cuenta con un checkbox y un botón para aceptar. Si se pulsa el
-* botón de aceptar se enviarán los datos a la propia página. Si se reciben los datos
-* del formulario de confirmación se eliminará al usuario, sus revelaciones y los
-* comentarios a estas y se cerrará la sesión y redirigirá a la página index
-*/
+    /**
+    * si no recibe datos mostrará un formulario con un aviso de confirmación de
+    * eliminación de la cuenta con un checkbox y un botón para aceptar. Si se pulsa el
+    * botón de aceptar se enviarán los datos a la propia página. Si se reciben los datos
+    * del formulario de confirmación se eliminará al usuario, sus revelaciones y los
+    * comentarios a estas y se cerrará la sesión y redirigirá a la página index
+    */
 
     require_once('inc/red/bd.inc.php');  
 
     session_start();
 
     /**
-     * Si no existe el objeto user (sesión no iniciada) redirige
+     * Si existe el objeto user (Sesión iniciada) 
+     * Si no existe redirige a index.php
      */
-   
+    if(isset($_SESSION['user'])){
+        $sesionIniciada = true; 
+    }else {
+        header('Location: index.php');
+        $sesionIniciada = false;
+    }
+
+    //Si se hace click en eliminar con el checkbox clicado
     if(isset($_POST['check'])){
         $id = $_SESSION['user']->id;     
         
@@ -30,13 +38,7 @@
             deleteRevel($revel->id);
         }
 
-        //Elimina todos los follows
-        /*
-        $follows = selectFollowsFromUser($id);
-        foreach($follows as $follow){
-            deleteFollow($id, $follow->id);
-        }
-        */
+        //Elimina todos los follows y followers
         deleteAllFollowsAndFolloweds($id);
 
         //Elimina la cuenta de usuario
@@ -65,7 +67,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Montserrat:wght@300&family=Poppins:wght@500;600&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="styles\style.css">
 </head>
-<body>
+<body class="bg-gris">
     <?php
         require_once('inc/cabecera_logged.inc.php');
     ?> 

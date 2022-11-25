@@ -5,7 +5,6 @@
         <a href="new.php" title="New"><li><i class="fa-solid fa-plus"></i></li></a>
         <a href="close.php" title="Close"><li><i class="fa-solid fa-right-from-bracket"></i></li></a>
         <a href="account.php" title="User"><li><i  class="fa-solid fa-user"></i></li></a>
-        
     </ul>
     <div>
         <form action="results.php" method="get">

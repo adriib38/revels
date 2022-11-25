@@ -1,5 +1,7 @@
 <?php
-
+    /**
+     * Objeto User para usuarios.
+     */
     class User {
         public $id;
         public $usuario;

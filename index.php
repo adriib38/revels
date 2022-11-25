@@ -10,7 +10,6 @@
     if(isset($_SESSION['user'])){
         $sesionIniciada = true; 
     }else {
-        echo 'NO INICIADA';
         $sesionIniciada = false;
     }
     
@@ -43,27 +42,25 @@
         <link rel="stylesheet" href="styles\style.css">
     </head>
     <body>
-        
 
         <?php 
             if(!$sesionIniciada) { 
                 // BIENVENIDA Cuando no hay sesión iniciada
                 require_once('inc/cabecera.inc.php');
-
                 include('inc/bienvenida.inc.php');
             }
         ?>
             
-            
         <?php 
+        /**
+         * Si la sesión está iniciada, se muestra el muro de revel del usuario.
+         */
         if($sesionIniciada){ 
-            //INDEX
             require_once('inc/cabecera_logged.inc.php');
-
             $id = $_SESSION['user']->id;
             $seguidos = selectFollowsFromUser($id); 
-        ?> 
-
+        ?>
+            <!-- Aside seguidos -->
             <nav id="slidebar-seguidos">
                 <p>Seguidos</p>
                 <hr>
@@ -108,7 +105,8 @@
                     
                 <?php
                     $muro = array();
-
+                    
+                    //Almacena revels
                     $muro = selectRevelsMuro($_SESSION['user']->id);
                    
                     //Imprime revels de muro
@@ -116,8 +114,6 @@
                         $usuario = selectUserById($revel->userid);
                         $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg?b=%232e3436';
                         $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i");
-
-
                 ?>
               
                     <div class="revel-muro">
@@ -137,13 +133,10 @@
                             </div>
                         </a>
                     </div>
-                
-           
         <?php 
            }
         //Fin si la sesión está iniciada.
             }
-        
         ?>
         <?php require_once('inc/footer.inc.php'); ?>
     </body>
