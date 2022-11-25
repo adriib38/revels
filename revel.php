@@ -5,7 +5,6 @@
     session_start();
 
     if(isset($_GET['id'])){
-       
         $revel = selectRevel($_GET['id']);
         $usuario = selectUserById($revel->userid);
         $comments = selectCommentsFromRevel($revel->id);
@@ -55,7 +54,7 @@
             <h2>Comentar</h2>
             <form action="comment.php" method="post">
                 <input type="hidden" name="idrevel" value="<?=$revel->id?>">
-                <input type="text" name="textocomentario">
+                <input type="text" name="textocomentario" require>
 
                 <input type="submit" value="Enviar">
             </form>
@@ -68,6 +67,7 @@
 
                     ?>
                     <div class="comentario">
+                        <br>
                         <img src="<?=$imagenUsuario ?>" width="50px">
                         <div class="content">
                             <a href="list.php?id=<?=$usuario->id?>"><?=$usuario->usuario ?></a>  

@@ -19,7 +19,7 @@
     if(isset($_POST['check'])){
         $id = $_SESSION['user']->id;     
         
-        $revels = selectRevelsForUser($id);
+        $revels = selectRevelsFromUser($id);
         //Elimina cada revel del usuario
         foreach($revels as $revel){
             $comments = selectCommentsFromRevel($revel->id);
@@ -31,12 +31,14 @@
         }
 
         //Elimina todos los follows
+        /*
         $follows = selectFollowsFromUser($id);
         foreach($follows as $follow){
-            print_r($follow->id);
             deleteFollow($id, $follow->id);
         }
-        
+        */
+        deleteAllFollowsAndFolloweds($id);
+
         //Elimina la cuenta de usuario
         if(deleteUser($id)){
             echo 'Eliminada';

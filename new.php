@@ -18,7 +18,7 @@
     }
 
     if(!empty($_POST)){
-        if(preg_match($revel, $_POST["texto"])){
+        if(preg_match($revelRegex, $_POST["texto"])){
             $newRevel = new Revel(0, $_SESSION['user']->id, $_POST["texto"], 0, 0);
             //Se publica el revel
             $ultimoIndexAnyadido = insertRevel($newRevel);

@@ -21,3 +21,5 @@ Una red social construida en PHP, con registro e inicio de sesión de usuarios e
  - [Pixabay](https://pixabay.com/) - Imagenes
  - [Pablo Stanley](https://avataaars.com/) - Iconos
  - Alex Torres
+ - Ángel Torada
+ 

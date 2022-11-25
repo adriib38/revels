@@ -14,26 +14,12 @@
     $dsn = 'mysql:host='.$host.';port='.$port.';dbname='.$bdName.'';          
     $opciones = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 
-    function todosLosUsuarios(){
-
-        $conexion = new PDO($dsn, $user, $password, $opciones);
-        
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM `users` WHERE 1;');
-        unset($conexion);
-        
-        $usuarios = $resultado->fetch();
-
-    }
-
     /**
      * Devuelve usuario por id.
      */
     function selectUserById($id){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
-
-        $returnUser = null;
 
         try{
             //Consulta SELECT
@@ -62,19 +48,23 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
+        try{
+            //Consulta SELECT
+            $resultado = $conexion->query('SELECT * FROM users WHERE usuario LIKE "'.$name.'"');
+            unset($conexion);
 
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM users WHERE usuario LIKE "'.$name.'"');
-        unset($conexion);
+            $filas = $resultado->rowCount();
+            if($filas == 0){ 
+                return false;
+            };
 
-        $filas = $resultado->rowCount();
-        if($filas == 0){ 
-            return false;
-        };
+            $usuario = $resultado->fetch();
 
-        $usuario = $resultado->fetch();
-        
-        return $usuario;
+            return $usuario;
+        }catch(Exception $e){
+            return false; 
+        }
+        return false; 
     }
 
     /**
@@ -84,18 +74,23 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM users WHERE email LIKE "'.$email.'"');
-        unset($conexion);
+        try{
+            //Consulta SELECT
+            $resultado = $conexion->query('SELECT * FROM users WHERE email LIKE "'.$email.'"');
+            unset($conexion);
 
-        $filas = $resultado->rowCount();
-        if($filas == 0){ 
+            $filas = $resultado->rowCount();
+            if($filas == 0){ 
+                return false;
+            };
+
+            $usuario = $resultado->fetch();
+
+            return $usuario;
+        }catch(Exception $e){
             return false;
-        };
-
-        $usuario = $resultado->fetch();
- 
-        return $usuario;
+        }
+        return false;
     }
 
     /**
@@ -107,56 +102,67 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
-        if(selectUserById($id) == null) return array();
+        try{
+        
+            if(selectUserById($id) == null) return array();
 
-        $revels = array();
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
-        //$resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, users.id, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$id.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC; ');
+            $revels = array();
+            //Consulta SELECT
+            $resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
+            //$resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, users.id, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$id.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC; ');
 
-        unset($conexion);
+            unset($conexion);
 
-        $filas = $resultado->rowCount();
-        if($filas == 0){ 
-            return array();
-        };
+            $filas = $resultado->rowCount();
+            if($filas == 0){ 
+                return array();
+            };
 
-        while($revelObtenido = $resultado->fetch()){
-            if(isset($revelObtenido['id'])){
-                $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], 0);
-                array_push($revels, $rev);
+            while($revelObtenido = $resultado->fetch()){
+                if(isset($revelObtenido['id'])){
+                    $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], 0);
+                    array_push($revels, $rev);
+                }
             }
+
+            return $revels;
+        }catch(Exception $e){
+            return $revels;
         }
-    
-        return $revels;
+
     }
 
     function selectRevelsMuro($id){
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
-        if(selectUserById($id) == null) return array();
+        try{
+      
+            if(selectUserById($id) == null) return array();
 
-        $revels = array();
-        //Consulta SELECT
-        //$resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
-        $resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$id.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC;');
+            $revels = array();
+            //Consulta SELECT
+            //$resultado = $conexion->query('SELECT * FROM revels WHERE userid LIKE "'.$id.'"');
+            $resultado = $conexion->query('SELECT revels.id, revels.texto, revels.userid, revels.fecha, COUNT(comments.id) AS comments FROM revels INNER JOIN users on revels.userid = users.id LEFT JOIN comments ON revels.id = comments.revelid WHERE revels.userid IN (SELECT userfollowed FROM follows WHERE userid = '.$id.' ) OR revels.userid = '.$id.' GROUP BY revels.id ORDER BY revels.fecha DESC;');
 
-        unset($conexion);
+            unset($conexion);
 
-        $filas = $resultado->rowCount();
-        if($filas == 0){ 
-            return array();
-        };
+            $filas = $resultado->rowCount();
+            if($filas == 0){ 
+                return array();
+            };
 
-        while($revelObtenido = $resultado->fetch()){
-            if(isset($revelObtenido['id'])){
-                $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], $revelObtenido['comments']);
-                array_push($revels, $rev);
+            while($revelObtenido = $resultado->fetch()){
+                if(isset($revelObtenido['id'])){
+                    $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], $revelObtenido['comments']);
+                    array_push($revels, $rev);
+                }
             }
+        
+            return $revels;
+        }catch(Exception $e){
+            return $revels;
         }
-    
-        return $revels;
     }
 
     /**
@@ -166,17 +172,23 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
-        if(selectUserById($id) == null) return array();
+        try{
+            
+            if(selectUserById($id) == null) return array();
 
-        $followers = array();
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM `follows` WHERE userid LIKE "'.$id.'"');
-        unset($conexion);
+            $followers = array();
+            //Consulta SELECT
+            $resultado = $conexion->query('SELECT * FROM `follows` WHERE userid LIKE "'.$id.'"');
+            unset($conexion);
 
-        while($res = $resultado->fetch()){
-            $followed = selectUserById($res['userfollowed']);
-            $usr = new User($followed->id, $followed->usuario, $followed->contrasenya, $followed->email);
-            array_push($followers, $usr);
+            while($res = $resultado->fetch()){
+                $followed = selectUserById($res['userfollowed']);
+                $usr = new User($followed->id, $followed->usuario, $followed->contrasenya, $followed->email);
+                array_push($followers, $usr);
+            }
+
+        }catch(Exception $e){
+            return $followers;    
         }
         return $followers;
     }
@@ -217,19 +229,23 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
         
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM `comments` WHERE id LIKE "'.$id.'"');
-        unset($conexion);
+        try{
+            //Consulta SELECT
+            $resultado = $conexion->query('SELECT * FROM `comments` WHERE id LIKE "'.$id.'"');
+            unset($conexion);
 
-        $filas = $resultado->rowCount();
-        if($filas == 0){ 
+            $filas = $resultado->rowCount();
+            if($filas == 0){ 
+                return false;
+            };
+
+            $commentObtenido = $resultado->fetch();
+            $comment = new Comment($commentObtenido['id'], $commentObtenido['revelid'], $commentObtenido['userid'], $commentObtenido['fecha'], $commentObtenido['texto']);
+            
+            return $comment;
+        }catch(Exception $e){
             return false;
-        };
-
-        $commentObtenido = $resultado->fetch();
-        $comment = new Comment($commentObtenido['id'], $commentObtenido['revelid'], $commentObtenido['userid'], $commentObtenido['fecha'], $commentObtenido['texto']);
-        
-        return $comment;
+        }
     }
 
     /**
@@ -239,20 +255,25 @@
         global $dsn, $user, $password, $opciones;
         $conexion = new PDO($dsn, $user, $password, $opciones);
         
-        if(!selectRevel($id)){
-            return array();
-        }
+        try{
+      
+            if(!selectRevel($id)){
+                return array();
+            }
 
-        $comments = array();
-        //Consulta SELECT
-        $resultado = $conexion->query('SELECT * FROM `comments` WHERE revelid LIKE "'.$id.'"');
-        unset($conexion);
+            $comments = array();
+            //Consulta SELECT
+            $resultado = $conexion->query('SELECT * FROM `comments` WHERE revelid LIKE "'.$id.'"');
+            unset($conexion);
 
-        while($com = $resultado->fetch()){
-            $comment = new Comment($com['id'], $com['revelid'], $com['userid'], $com['texto'], $com['fecha']);
-            array_push($comments, $comment);
+            while($com = $resultado->fetch()){
+                $comment = new Comment($com['id'], $com['revelid'], $com['userid'], $com['texto'], $com['fecha']);
+                array_push($comments, $comment);
+            }
+            return $comments;
+        }catch(Exception $e){
+            return $comments;
         }
-        return($comments);
     }
 
     /**
@@ -309,7 +330,6 @@
             $rev = new Revel($revelObtenido['id'], $revelObtenido['userid'], $revelObtenido['texto'], $revelObtenido['fecha'], $revelObtenido['comments']);
             return $rev;
         }catch(Exception $e){
-            print_r($e);
             return false;
         }
     }
@@ -343,7 +363,7 @@
     /**
     * Si el email coincide con la contraseña devuelve el usuario; Si no devuelve false
     *
-	* @deprecated desde login2
+	* @deprecated ahora se usa login2
 	*/
     function login($email, $pass){
         global $dsn, $user, $password, $opciones;
@@ -367,7 +387,7 @@
     }
 
     /**
-     * Login con contraseñas encriptadas
+     * Login con contraseñas cifradas
      */
     function login2($email, $pass){
         global $dsn, $user, $password, $opciones;
@@ -453,7 +473,7 @@
         $conexion = new PDO($dsn, $user, $password, $opciones);
 
         try{
-            $resultado = $conexion->query('SELECT * FROM follows WHERE userid = '.$follower.' AND userfollowed = '.$followed.';');
+            $resultado = $conexion->query('SELECT * FROM follows WHERE userid = "'.$follower.'" AND userfollowed = "'.$followed.'";');
             unset($conexion);
             
             $filas = $resultado->rowCount();
@@ -500,7 +520,7 @@
     }
 
     /**
-    * Crea una relacion follow
+    * Elimina una relacion follow entre un usuario seguidor y uno seguido
     */
     function deleteFollow($follower, $followed){
         global $dsn, $user, $password, $opciones;
@@ -520,6 +540,20 @@
                 return false;
             }   
         }
+    }
+
+    function deleteAllFollowsAndFolloweds($id){
+        global $dsn, $user, $password, $opciones;
+        $conexion = new PDO($dsn, $user, $password, $opciones);
+
+        try{
+            $resultado = $conexion->query('DELETE FROM `follows` WHERE userid = '.$id.' or userfollowed = '.$id.';');
+            unset($conexion);
+
+            return true;
+        }catch(PDOException $e){
+            return false;
+        }   
     }
 
     /**
@@ -625,7 +659,6 @@
             return false;
         }   
     }
-
 
 ?>
 

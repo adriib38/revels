@@ -259,7 +259,10 @@ a:visited {
   padding-left: 20px;
 
   margin-top: 10px;
+}
 
+.revel-muro:hover {
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .usuario { 
@@ -421,6 +424,7 @@ i:hover{
 
 .comentario {
   display: flex;
+  word-wrap: break-word;
   background-color: var(--azul);
   padding: 10px;
   border-radius: 10px;
@@ -430,9 +434,13 @@ i:hover{
 
 .comentario > .content > a {
   background-color: var(--negro);
-  padding: 5px;
+  padding: 4px;
   border-radius: 10px;
   color: var(--blanco);
+}
+
+.comentario > .content {
+  margin-left: 10px;
 }
 
 .revel-muro .fecha{

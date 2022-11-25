@@ -34,13 +34,11 @@
         $idASeguir = $_POST["idASeguir"];
         
         if(insertFollow($_SESSION['user']->id, $idASeguir)){
-        //if($red->insertFollow(6, 5)){
             $estado = "Siguiendo";
         } else {
             $estado = "Error";
         }
-        echo $estado;
-        
+        echo $estado;        
     }
 ?>
 <!DOCTYPE html>
@@ -77,7 +75,12 @@
                         <?php 
                             if($_SESSION['user']->id != $user->id){
                                 echo '<input type="hidden" name="idASeguir" value="'.$user->id.'">'; 
-                                echo '<input type="submit" class="btn-seguir" value="+ Seguir">';
+                                if(!leSigue($user->id, $_SESSION['user']->id)){
+                                    echo '<input type="submit" class="btn-seguir" value="+ Seguir">';
+                                }else{
+                                    echo '<input type="submit" class="btn-seguir" value="Unfollow">';
+                                }
+                                
                             }else{
                                 echo 'Yo';
                             }
