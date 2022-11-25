@@ -20,7 +20,7 @@
     <title>Revel</title>
 
     <link rel="icon" type="image/x-icon" href="images/_logo.png">
-    <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,7 @@
     <body>
         <?php require_once('inc/cabecera_logged.inc.php'); 
             $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg?b=%232e3436';
-            $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
+            $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i");
             print_r($revel);
         ?>
         <div class="muro">
@@ -64,7 +64,7 @@
                 foreach($comments as $comment){
                     $usuario = selectUserById($comment->userid);
                     $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg?b=%232e3436';
-                    $fecha = date_format(date_create($comment->fecha), "d/m/Y - H:i:s");
+                    $fecha = date_format(date_create($comment->fecha), "d/m/Y - H:i");
 
                     ?>
                     <div class="comentario">

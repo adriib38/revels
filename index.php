@@ -14,16 +14,6 @@
         $sesionIniciada = false;
     }
     
-   
-    /**
-     * Comprobamos si hay sesión iniciada para mostrar "Bienvenida" o "Muro".
-     *    
-     *  $idUser = $id_session_simulator;
-     *       if($idUser != 0) {
-     *           $sesionIniciada = true;
-     *           $userIniciado = selectUserById($idUser);
-     *       }
-     */
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +35,7 @@
         <meta property="og:description" content="Rǝvels es un sitio web de microblogging que permite a los usuarios publicar breves mensajes de texto, llamados 'revels', de hasta 290 caracteres." />
 
         <link rel="icon" type="image/x-icon" href="images/_logo.png">
-        <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,55 +44,26 @@
     </head>
     <body>
         
-        <?php if(!$sesionIniciada) { 
-            require_once('inc/cabecera.inc.php');
-        ?>
-            <!--
-                BIENVENIDA Cuando no hay sesión iniciada
-            -->
-            
-            <div class="mrg-50">
-                <div class="centrado">
-                    <h1>Bienvenido a <span class="titulo-incicio">Rǝvels</span></h1>
 
-                    <div class="lista-bienvenida">
-                        <img src="images/mockup.png" width="320px"> 
-                        <div>
-                            <p class="bienvenida-desc">Rǝvels es un sitio web de microblogging que permite a los usuarios publicar breves mensajes de texto, llamados "revels", de hasta 290 caracteres.</p>
-                            <p class="bienvenida-desc">Los usuarios pueden enviar y recibir mensajes a través de la aplicación móvil o la web. Rǝvels también permite a los usuarios seguir a otros usuarios y marcar sus revels como "favoritos".</p>
-                            <ul>
-                                <li>Como Twitter pero sin bots.</li>
-                                <li>Tu privacidad asegurada.</li>
-                            </ul>
-                            <p class="bienvenida-desc">Si ya tienes una cuenta de Revels <a href="login.php">inicia sesión</a>, si aún no <a href="registro.php">registrate</a>,</p>
-                        </div>
-                    </div>
-                    <h2>Empieza a compartir momentos</h2>
-                <div class="index-btns">
-                    <a href="login.php" class="btn-login">Login</a>
-                    <a href="registro.php" class="btn-registro">Registro</a>
-                </div>
-                <img src="images/collage-momentos.png" width=1200px>
-                <div class="conectamos-personas">
-                    <h2>Conectamos personas</h2>
-                    <br>
-                    <video autoplay muted loop width="930">
-                        <source src="images/tierra.mp4" type="video/mp4">
-                        Tu navegador no puede reproducir este video.
-                    </video>
-                </div>
-                </div>
-            </div>
-        <?php } if($sesionIniciada){ 
-            /**
-             * Navbar sesion iniciada
-             */
+        <?php 
+            if(!$sesionIniciada) { 
+                // BIENVENIDA Cuando no hay sesión iniciada
+                require_once('inc/cabecera.inc.php');
+
+                include('inc/bienvenida.inc.php');
+            }
+        ?>
+            
+            
+        <?php 
+        if($sesionIniciada){ 
+            //INDEX
             require_once('inc/cabecera_logged.inc.php');
+
+            $id = $_SESSION['user']->id;
+            $seguidos = selectFollowsFromUser($id); 
         ?> 
-            <?php 
-                $id = $_SESSION['user']->id;
-                $seguidos = selectFollowsFromUser($id); 
-            ?>         
+
             <nav id="slidebar-seguidos">
                 <p>Seguidos</p>
                 <hr>
@@ -123,7 +84,7 @@
                 NUEVO REVEL
             -->
             <div class="muro">
-                <h2>Nuevo revel</h2>
+                <h2>Nuevo rǝvel</h2>
                 <div class="underline"></div>
                 <div id="nuevo-revel-acceso">
                     <div class="usuario">
@@ -140,8 +101,6 @@
 
             <!-- 
                 Muro de revels de seguidos
-
-                AHORA ES DE TUS REVELS
             -->
             <div class="muro">
                 <h2>Últimos Rǝvels</h2>
@@ -150,33 +109,13 @@
                 <?php
                     $muro = array();
 
-                    /*
-                    //Añade revels de mis seguidos a mi muro
-                    foreach($seguidos as $segui){
-                        $revelsDeUsuario = selectRevelsFromUser($segui->id);
-                        foreach($revelsDeUsuario as $revelU){
-                            array_push($muro, $revelU);
-                        }
-                    }
-                    
-                    //Añade mis revels a los de mis seguidores (mi muro)
-                    $misRevels = selectRevelsFromUser($_SESSION['user']->id);
-                    foreach($misRevels as $miRevel){
-                        array_push($muro, $miRevel);
-                    }
-
-                    //Ordena el array de revels $muro
-                    usort($muro, function ($a, $b) {
-                        return strcmp($b->fecha, $a->fecha);
-                    });
-                    */
                     $muro = selectRevelsMuro($_SESSION['user']->id);
                    
                     //Imprime revels de muro
                     foreach($muro as $revel){    
                         $usuario = selectUserById($revel->userid);
                         $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg?b=%232e3436';
-                        $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
+                        $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i");
 
 
                 ?>

@@ -64,7 +64,7 @@
         <meta http-equiv="expires" content="Sat, 07 feb 2016 00:00:00 GMT">
 
         <link rel="icon" type="image/x-icon" href="images/_logo.png">
-        <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,7 +120,7 @@
                 foreach($revels as $revel){
                     $usuario = selectUserById($revel->userid);
                     $imagenUsuario = 'https://avatars.dicebear.com/api/avataaars/'.$usuario->usuario.'.svg?b=%232e3436';
-                    $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i:s");
+                    $fecha = date_format(date_create($revel->fecha), "d/m/Y - H:i");
                 ?>   
                     <div class="revel-muro">
                         <div class="usuario">

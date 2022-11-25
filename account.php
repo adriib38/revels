@@ -110,7 +110,7 @@
         
         <meta http-equiv="expires" content="Sat, 07 feb 2016 00:00:00 GMT">
 
-        <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="styles\style.css">
     </head>
     <body class="bg-gris">

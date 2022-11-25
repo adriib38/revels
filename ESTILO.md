@@ -54,6 +54,9 @@ Un aside lateral izquierdo con los usuarios siguiendo, con acceso directo a su l
 ![](https://snipboard.io/g0Hf5X.jpg)
 ![](https://lh6.googleusercontent.com/FGXuWefR52z-1PHPa__6dQd5zmlulWnILTsBVuAD2yJc1JmwSUenRlymXk3znrIPTvfo6xDDN9uusFBwx5kKk7MoVRaSZShgSSDOYXWFQVIJVIhmNwGYayvSh5W9Qz7TvoJ_dzyjBTf9bqXiDUgugRCiPE4RxHQmEKFGIzD6iN5Z7z_w7kl3_TiY6GnDpA)
 
+#### Responsive
+![](https://snipboard.io/hnSos5.jpg)
+
 ## Estructura de navegación
 
 ![](https://snipboard.io/RJXo21.jpg)

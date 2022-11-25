@@ -43,6 +43,7 @@ a:visited {
   width: 100%;
   box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.062), -5px -2px 30px 7px rgba(0, 0, 0, 0.075);
   background-color: var(--blanco); 
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 100%);
   top:0; 
   border: 1px solid rgba(0, 0, 0, 0);
 
@@ -88,7 +89,8 @@ a:visited {
   color: var(--blanco);
 }
 
-.navbar li:hover {
+.navbar li:hover,
+.navbar li:focus {
   background-color: var(--amarillo);
 }
 
@@ -146,13 +148,15 @@ a:visited {
 }
 
 .btn-login:hover,
-.btn-registro:hover{  
+.btn-login:focus,
+.btn-registro:hover,
+.btn-registro:focus {  
   position: relative;
   top: 2px;
   box-shadow: 0px 0px 0px #8FD5FFEB;
 }
-.btn-login:hover { box-shadow: 0px 0px 0px #8FD5FFEB; }
-.btn-registro:hover { box-shadow: 0px 0px 0px #FFA400; }
+.btn-login:hover, .btn-login:focus { box-shadow: 0px 0px 0px #8FD5FFEB; }
+.btn-registro:hover, .btn-registro:focus { box-shadow: 0px 0px 0px #FFA400; }
 
 .btn-registro {
   background: #FFA400;
@@ -323,8 +327,6 @@ i:hover{
 .gradient-8,
 .gradient-9 { background: rgb(255,130,24); background: linear-gradient(180deg, rgba(255,130,24,1) 0%, rgba(112,0,103,1) 90%, rgba(15,14,23,1) 100%); }
 
-
-
 .perfil-cabecera > #nombre {
   text-shadow: #272727;
 }
@@ -387,7 +389,6 @@ i:hover{
   width: 60%;
   min-width: 400px;
   padding: 20px;
-
 }
 
 .publicar-revel img{
@@ -401,7 +402,6 @@ i:hover{
   display: flex;
 
   align-items: center;
-  background-color: var(--azul);
  
   padding: 5px;
 
@@ -412,12 +412,11 @@ i:hover{
 
 .publicar-revel form {
   display: flex;
-  background-color: var(--amarillo);
-  
-  padding: 20px;
 
+  padding: 20px;
   border-bottom-right-radius: 40px 40px;
   border-bottom-left-radius: 40px 40px;
+  border: var(--naranja) solid 2px;
 }
 
 .comentario {
@@ -457,10 +456,18 @@ i:hover{
   margin-bottom: 2px;
 }
 
+#publicar-revel:hover,
+#publicar-revel:focus {
+
+  transform: scale(0.9);
+  transition: all .1s ease-in-out;
+}
+
 button,
 input[type="button"],
 input[type="submit"],
 .revel-muro:hover,
+.revel-muro:focus,
 i:hover 
 {  
   cursor: pointer;
@@ -487,6 +494,24 @@ i:hover
 *::selection {
   background-color: var(--negro);
   color: var(--blanco);
+}
+
+
+@media only screen and (max-width: 722px) {
+  .revel-muro {
+    width: auto;
+    margin-right: 20px;
+  }
+  #nuevo-revel-acceso{
+    width: auto;
+    margin-right: 20px;
+  }
+  #slidebar-seguidos{
+    display: none;
+  }
+  .muro{
+    margin-left: 20px;
+  }
 }
 
 @keyframes anim-shadow {

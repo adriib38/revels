@@ -56,7 +56,7 @@
     <title>Document</title>
 
     <link rel="icon" type="image/x-icon" href="images/_logo.png">
-    <script src="https://kit.fontawesome.com/92a45f44adX2.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/92a45f44ad.js" crossorigin="anonymous"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
