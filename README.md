@@ -3,10 +3,15 @@
 ![](https://snipboard.io/SLDhQC.jpg)
 
 Revels es una red social construida en PHP, con registro e inicio de sesión de usuarios en base de datos.
+
 Los usuarios pueden publicar "revels" (texto).
+
 Cada usuario, al iniciar sesión verá su muro, con revels publicados por usuarios a los que sigue.
+
 Cada usuario puede ver sus revels en su "list.php".
+
 Cada usuario puede buscar a otros usuarios y seguirles en results.php.
+
 
 ![Guia de estilo](https://github.com/adriib38/revels/blob/main/ESTILO.md)
 
